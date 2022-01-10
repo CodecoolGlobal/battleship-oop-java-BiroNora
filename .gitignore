@@ -5,3 +5,4 @@ config.properties
 .idea/
 target/
 *.iml
+out/
