@@ -13,13 +13,14 @@ public class Input {
 
         String coordinate = input.toUpperCase().trim();
         String secondCoordinate = coordinate.substring(1, coordinate.length());
+
         if (!(checkUpperCharIsAlphabetical(coordinate.charAt(0))))
             throw new IllegalArgumentException("the first char can only be a letter. (A-Z)");
 
-        if (!(onlyDigits(secondCoordinate)))
+        if (!(onlyDigits(secondCoordinate)) || secondCoordinate.isEmpty() || secondCoordinate.length() > 2)
             throw new IllegalArgumentException("after the first char, there can only be numbers and max 2 length.(0-9)");
 
-        int[] aCoordinate = new int[]{(int) coordinate.charAt(0), Integer.parseInt(secondCoordinate)};
+        int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 11, Integer.parseInt(secondCoordinate)};
 
         return aCoordinate;
 
