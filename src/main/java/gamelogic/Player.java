@@ -5,11 +5,23 @@ import main.java.data.Ship;
 import java.util.List;
 
 //12 ships:
-//1 carrier
-//2 battleships
-//3 cruisers
-//4 destroyers
-//2 submarines
+//1 carrier(5)
+//2 battleships(4)
+//3 cruisers(3)
+//4 destroyers(2)
+//2 submarines(1)
 public class Player {
     private List<Ship> ships;
+
+    public List<Ship> getShips() {
+        return ships;
+    }
+
+    public void setShips(List<Ship> ships) {
+        this.ships = ships;
+    }
+
+    public void addShip(Ship ship) {
+        ships.add(ship);
+    }
 }
