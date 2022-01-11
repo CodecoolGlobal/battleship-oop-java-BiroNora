@@ -20,7 +20,7 @@ public class Input {
         if (!(onlyDigits(secondCoordinate)) || secondCoordinate.isEmpty() || secondCoordinate.length() > 2)
             throw new IllegalArgumentException("after the first char, there can only be numbers and max 2 length.(0-9)");
 
-        int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 11, Integer.parseInt(secondCoordinate)};
+        int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 17, Integer.parseInt(secondCoordinate)};
 
         return aCoordinate;
 
