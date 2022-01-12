@@ -12,6 +12,7 @@ public class App {
         Player player = new Player();
         Board board = boardFactory.randomPlacement(10, 10, ShipType.getDefaultShipSet(), player);
         Display display = new Display();
-        display.printBoard(board);
+        display.printBoard(board, true);
+        display.printBoard(board, false);
     }
 }
