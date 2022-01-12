@@ -1,9 +1,10 @@
 package main.java.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ship {
-    private List<Square> squares;
+    private List<Square> squares = new ArrayList<>();
 
     public Ship(ShipType shiptype, int[] rowCol, Direction direction) {
         switch(shiptype) {

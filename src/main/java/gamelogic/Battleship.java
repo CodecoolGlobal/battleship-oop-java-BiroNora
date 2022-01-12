@@ -1,7 +1,7 @@
 package main.java.gamelogic;
 
-public class Battleship {
-    public static void main(String[] args) {
+import main.java.display.Display;
 
-    }
+public class Battleship {
+    private Display display = new Display();
 }
