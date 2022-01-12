@@ -3,7 +3,9 @@ package main.java.data;
 import java.util.List;
 
 public class Board {
-    //size 10x10
+    public static final int DEFAULT_SIZE = 10;
+
+    //10x10 by default
     private Square[][] ocean;
 
     public Board(Square[][] ocean) {
