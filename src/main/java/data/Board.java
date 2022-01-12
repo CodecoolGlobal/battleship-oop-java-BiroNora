@@ -45,6 +45,8 @@ public class Board {
         for (Square square : squares) {
             if (!isSquareEmpty(new int[]{square.getY(), square.getX()}))
                 return false;
+            if (!isSquareNeighboursEmpty(new int[]{square.getY(), square.getX()}))
+                return false;
         }
         return true;
     }
@@ -65,5 +67,7 @@ public class Board {
         return ocean.length;
     }
 
-
+    public Square[][] getOcean() {
+        return ocean;
+    }
 }

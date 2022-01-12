@@ -14,23 +14,39 @@ public class BoardFactory {
     //2 submarines(1)
     public Board randomPlacement(int rows, int cols, List<ShipType> shipTypeList, Player player) {
 
-        Board board = generateEmptyBoard(rows, cols);
-        int rowMax = board.getHeight();
-        int colMax = board.getWidth();
+        Board board;
 
-        for (int i = 0; i < shipTypeList.size(); i++) {
-            Ship ship = null;
-            do {
-                int x = RandomGenerator.getRandomNumber(0, colMax);
-                int y = RandomGenerator.getRandomNumber(0, rowMax);
-                Direction direction = Direction.getDirectionFromNumber(
-                        RandomGenerator.getRandomNumber(1, 4 + 1));
-                ship = new Ship(shipTypeList.get(i), new int[]{y, x}, direction);
-            } while (!board.isShipPlacementPossible(ship));
+        //number of attempts made to generate ships
+        int tryCounter = 0;
 
-            board.placeShip(ship);
-            player.addShip(ship);
-        }
+        do {
+            tryCounter = 0;
+            board = generateEmptyBoard(rows, cols);
+            int rowMax = board.getHeight();
+            int colMax = board.getWidth();
+            player.clearShipList();
+
+            for (int i = 0; i < shipTypeList.size(); i++) {
+                Ship ship = null;
+                do {
+                    if (100 < tryCounter)
+                        break;
+                    int x = RandomGenerator.getRandomNumber(0, colMax);
+                    int y = RandomGenerator.getRandomNumber(0, rowMax);
+                    Direction direction = Direction.getDirectionFromNumber(
+                            RandomGenerator.getRandomNumber(1, 4 + 1));
+                    ship = new Ship(shipTypeList.get(i), new int[]{y, x}, direction);
+                    tryCounter++;
+                } while (!board.isShipPlacementPossible(ship));
+
+                if (100 < tryCounter)
+                    break;
+
+                board.placeShip(ship);
+                player.addShip(ship);
+            }
+        } while (100 < tryCounter);
+
 
         return board;
     }

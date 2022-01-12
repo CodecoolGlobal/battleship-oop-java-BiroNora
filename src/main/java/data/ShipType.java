@@ -16,7 +16,7 @@ public enum ShipType {
         this.numberOfSquares = numberOfSquares;
     }
 
-    public List<ShipType> getDefaultShipSet() {
+    public static List<ShipType> getDefaultShipSet() {
         //12 ships:
         //1 carrier(5)
         //2 battleships(4)
