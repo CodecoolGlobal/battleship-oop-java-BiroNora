@@ -5,19 +5,26 @@ import main.java.data.Square;
 import main.java.data.SquareStatus;
 
 public class Display {
-    public void printBoard(Board board) {
+    //isPlayer == should draw player ships or opponent ships
+    public void printBoard(Board board, boolean isPlayer) {
         Square[][] ocean = board.getOcean();
-        for (int row = 0; row < ocean.length; row++) {
-            for (int col = 0; col < ocean[0].length; col++) {
-                char c = '.';
-                if(ocean[row][col].getStatus() == SquareStatus.SHIP) {
-                    c = '#'; //ASCII code
-                } else if(ocean[row][col].getStatus() == SquareStatus.HIT) {
-                    c = 'X';
-                } else if(ocean[row][col].getStatus() == SquareStatus.MISSED) {
-                    c = 'O';
+        for (int row = -1; row < ocean.length; row++) {
+            for (int col = -1; col < ocean[0].length; col++) {
+                String square = ".";
+                if(row == -1) {
+                    square = "" + (-1 < col ? (col + 1) : " ");
+                } else if (col == -1) {
+                    square = "" + (char)('A' + row);
+                } else {
+                    if(ocean[row][col].getStatus() == SquareStatus.SHIP && isPlayer) {
+                        square = "#";
+                    } else if(ocean[row][col].getStatus() == SquareStatus.HIT) {
+                        square = "X";
+                    } else if(ocean[row][col].getStatus() == SquareStatus.MISSED) {
+                        square = "O";
+                    }
                 }
-                System.out.print(c + " ");
+                System.out.print(square + " ");
             }
             System.out.println();
         }
