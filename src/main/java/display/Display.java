@@ -5,22 +5,29 @@ import main.java.data.Square;
 import main.java.data.SquareStatus;
 
 public class Display {
+
+
+    public static void printMessage(String message) {
+
+        System.out.println(message);
+    }
+
     //isPlayer == should draw player ships or opponent ships
     public void printBoard(Board board, boolean isPlayer) {
         Square[][] ocean = board.getOcean();
         for (int row = -1; row < ocean.length; row++) {
             for (int col = -1; col < ocean[0].length; col++) {
                 String square = ".";
-                if(row == -1) {
+                if (row == -1) {
                     square = "" + (-1 < col ? (col + 1) : " ");
                 } else if (col == -1) {
-                    square = "" + (char)('A' + row);
+                    square = "" + (char) ('A' + row);
                 } else {
-                    if(ocean[row][col].getStatus() == SquareStatus.SHIP && isPlayer) {
+                    if (ocean[row][col].getStatus() == SquareStatus.SHIP && isPlayer) {
                         square = "#";
-                    } else if(ocean[row][col].getStatus() == SquareStatus.HIT) {
+                    } else if (ocean[row][col].getStatus() == SquareStatus.HIT) {
                         square = "X";
-                    } else if(ocean[row][col].getStatus() == SquareStatus.MISSED) {
+                    } else if (ocean[row][col].getStatus() == SquareStatus.MISSED) {
                         square = "O";
                     }
                 }
@@ -28,7 +35,9 @@ public class Display {
             }
             System.out.println();
         }
+
     }
+
 
     public void printWrongCoordinateGiven() {
         System.out.println("The coordinates given are wrong. Try again.");
@@ -41,4 +50,5 @@ public class Display {
     public void printShotMissed() {
         System.out.println("Shot missed.");
     }
+
 }
