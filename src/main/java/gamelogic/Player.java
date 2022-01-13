@@ -29,4 +29,30 @@ public class Player {
     public void addShip(Ship ship) {
         ships.add(ship);
     }
+
+    //calculates hitting a ship (ship is HIT or SUNK)
+    public Ship.ShipHitStatus hitShip(int[] rowCol) {
+        Ship.ShipHitStatus shipHitStatus = Ship.ShipHitStatus.HIT;
+        for(Ship ship : ships) {
+            if(ship.containsCoordinate(rowCol)) {
+                ship.hitCoordinate(rowCol);
+                if(ship.isSunk())
+                    shipHitStatus = Ship.ShipHitStatus.SUNK;
+                break;
+            }
+        }
+        return shipHitStatus;
+    }
+
+    //player has at least one ship left alive
+    public boolean isAlive() {
+        int shipCount = 0;
+        for(Ship ship : ships) {
+            if(ship.isSunk())
+                shipCount++;
+        }
+        if(shipCount == ships.size())
+            return false;
+        return true;
+    }
 }
