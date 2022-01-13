@@ -1,15 +1,47 @@
 package main.java.input;
 
+import main.java.display.Display;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Input {
 
-    Scanner in = new Scanner(System.in);
+
+    public int[] getCoordinateFromUser() {
+        Scanner scanner = new Scanner(System.in);
+        int[] arrCoordinate = new int[2];
+
+        while (true) {
+
+            Display.printMessage("\nType in the coordinates of your ship (e.g. A1,A13) or type in QUIT to give up: ");
+            if (scanner.hasNextLine()) {
+                String command = scanner.nextLine();
+                if (command.equals("")) {
+                    Display.printMessage("You didn't type anything !");
+                    continue;
+                }
+                if (command.toUpperCase().equals("QUIT")) {
+                    break;
+                } else {
+                    try {
+                        arrCoordinate = convertInputToCoordinate(command);
+                        break;
+                    } catch (IllegalArgumentException ex) {
+                        Display.printMessage(ex.getMessage());
+                    }
+                }
+            }
+        }
+
+        return arrCoordinate == null ? null : arrCoordinate;
+
+    }
+
 
     // example a1,A1,a12,A12
-    public int[] convertInputToCoordinate(String input) {
+    private int[] convertInputToCoordinate(String input) {
 
         String coordinate = input.toUpperCase().trim();
         String secondCoordinate = coordinate.substring(1, coordinate.length());
@@ -17,10 +49,10 @@ public class Input {
         if (!(checkUpperCharIsAlphabetical(coordinate.charAt(0))))
             throw new IllegalArgumentException("the first char can only be a letter. (A-Z)");
 
-        if (!(onlyDigits(secondCoordinate)) || secondCoordinate.isEmpty() || secondCoordinate.length() > 2)
-            throw new IllegalArgumentException("after the first char, there can only be numbers and max 2 length.(0-9)");
+        if (!(onlyDigits(secondCoordinate)) || secondCoordinate.isEmpty() || secondCoordinate.length() > 2 || secondCoordinate.equals(0))
+            throw new IllegalArgumentException("after the first char, there can only be numbers and max on 2 length.(0-9)");
 
-        int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 11, Integer.parseInt(secondCoordinate)};
+        int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 17, Integer.parseInt(secondCoordinate) - 1};
 
         return aCoordinate;
 
