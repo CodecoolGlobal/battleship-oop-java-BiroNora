@@ -1,6 +1,7 @@
 package main.java.input;
 
 import main.java.display.Display;
+import main.java.gamelogic.RuleSet;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -8,18 +9,21 @@ import java.util.regex.Pattern;
 
 public class Input {
 
+    Scanner scanner = new Scanner(System.in);
 
-    public int[] getCoordinateFromUser() {
-        Scanner scanner = new Scanner(System.in);
+    public int[] getCoordinateFromUser(Display display) {
+
         int[] arrCoordinate = new int[2];
 
         while (true) {
 
-            Display.printMessage("\nType in the coordinates of your ship (e.g. A1,A13) or type in QUIT to give up: ");
+            display.printGetCoordinateFromPlayer();
+            display.printCommandPrompt();
+
             if (scanner.hasNextLine()) {
                 String command = scanner.nextLine();
                 if (command.equals("")) {
-                    Display.printMessage("You didn't type anything !");
+                    display.printFromPlayerNoInput();
                     continue;
                 }
                 if (command.toUpperCase().equals("QUIT")) {
@@ -29,7 +33,7 @@ public class Input {
                         arrCoordinate = convertInputToCoordinate(command);
                         break;
                     } catch (IllegalArgumentException ex) {
-                        Display.printMessage(ex.getMessage());
+                        display.printSystemErrorMessage(ex.getMessage());
                     }
                 }
             }
@@ -39,6 +43,81 @@ public class Input {
 
     }
 
+    public RuleSet.PlayerType selectPlayerType(Display display) {
+
+        String choice;
+        display.printplayerTypeMenu();
+
+
+        while (true) {
+            display.printCommandPrompt();
+            if (scanner.hasNextLine()) {
+                choice = scanner.nextLine();
+                choice = choice.trim();
+
+                switch (choice) {
+                    case "1":
+                        return RuleSet.PlayerType.PLAYER_VS_PLAYER;
+                    case "2":
+                        return RuleSet.PlayerType.PLAYER_VS_AI;
+                    case "3":
+                        return RuleSet.PlayerType.PLAYER_VS_AI;
+                    default:
+                        display.printSelectNumber1to3();
+                }
+            }
+        }
+    }
+
+    public RuleSet.ShipForm selectShipForm(Display display) {
+
+        String choice;
+        display.printShipFormMenu();
+
+
+        while (true) {
+            display.printCommandPrompt();
+            if (scanner.hasNextLine()) {
+                choice = scanner.nextLine();
+                choice = choice.trim();
+
+                switch (choice) {
+                    case "1":
+                        return RuleSet.ShipForm.LINE_SHIPS;
+                    case "2":
+                        return RuleSet.ShipForm.MIXED_SHIPS;
+
+                    default:
+                        display.printSelectNumber1to2();
+                }
+            }
+        }
+    }
+
+    public RuleSet.ShipAdjacency selectShipAdjacency(Display display) {
+
+        String choice;
+        display.printShipAdjacencyMenu();
+
+
+        while (true) {
+            display.printCommandPrompt();
+            if (scanner.hasNextLine()) {
+                choice = scanner.nextLine();
+                choice = choice.trim();
+
+                switch (choice) {
+                    case "1":
+                        return RuleSet.ShipAdjacency.ALLOWED;
+                    case "2":
+                        return RuleSet.ShipAdjacency.NOT_ALLOWED;
+
+                    default:
+                        display.printSelectNumber1to2();
+                }
+            }
+        }
+    }
 
     // example a1,A1,a12,A12
     private int[] convertInputToCoordinate(String input) {

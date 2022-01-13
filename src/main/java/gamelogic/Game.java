@@ -16,7 +16,7 @@ public class Game {
 
     public void newGame(Display display, Input input, BoardFactory boardFactory) {
         //display.printNewGameMenu();
-        //RuleSet.PlayerType playerType = input.selectPlayerType(display);  // PLAYER_VS_PLAYER, PLAYER_VS_AI, AI_VS_AI
+        RuleSet.PlayerType playerType = input.selectPlayerType(display);  // PLAYER_VS_PLAYER, PLAYER_VS_AI, AI_VS_AI
         //RuleSet.ShipForm shipForm = input.selectShipForm(display);  // LINE_SHIPS, MIXED_SHIPS
         //RuleSet.ShipAdjacency shipAdjacency = input.selectShipAdjacency(display);  // ALLOWED, NOT_ALLOWED
         //ruleSet = new RuleSet(playerType, shipForm, shipAdjacency);
