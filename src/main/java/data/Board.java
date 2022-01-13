@@ -61,6 +61,17 @@ public class Board {
         }
     }
 
+    //get the status of a square
+    public SquareStatus getSquareStatus(int[] rowCol) {
+
+        int row = rowCol[0];
+        int col = rowCol[1];
+
+        return (0 <= row && row < ocean.length &&
+                0 <= col && col < ocean[0].length ?
+                ocean[row][col].getStatus() : null);
+    }
+
     public int getWidth() {
         return ocean[0].length;
     }

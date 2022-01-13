@@ -29,4 +29,16 @@ public class Display {
             System.out.println();
         }
     }
+
+    public void printWrongCoordinateGiven() {
+        System.out.println("The coordinates given are wrong. Try again.");
+    }
+
+    public void printAlreadyShotThere() {
+        System.out.println("You have already shot there. Try a different coordinate.");
+    }
+
+    public void printShotMissed() {
+        System.out.println("Shot missed.");
+    }
 }
