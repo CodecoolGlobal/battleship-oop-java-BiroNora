@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ship {
+    public enum ShipHitStatus { HIT, SUNK }
+
     private List<Square> squares = new ArrayList<>();
 
     public Ship(ShipType shiptype, int[] rowCol, Direction direction) {
@@ -36,5 +38,34 @@ public class Ship {
 
     public List<Square> getSquares() {
         return squares;
+    }
+
+    //is coordinate part of ship
+    public boolean containsCoordinate(int[] rowCol) {
+        for (Square square : squares) {
+            if(rowCol[0] == square.getY() && rowCol[1] == square.getX())
+                return true;
+        }
+        return false;
+    }
+
+    //is coordinate part of ship
+    public void hitCoordinate(int[] rowCol) {
+        for (int i = 0; i < squares.size(); i++) {
+            if(rowCol[0] == squares.get(i).getY() && rowCol[1] == squares.get(i).getX()) {
+                squares.set(i, new Square(squares.get(i).getX(), squares.get(i).getY(), SquareStatus.HIT));
+                return;
+            }
+        }
+    }
+
+    //check if all ship squares are hit
+    public boolean isSunk() {
+        for (Square square : squares) {
+            if(square.getStatus() != SquareStatus.HIT) {
+                return false;
+            }
+        }
+        return true;
     }
 }
