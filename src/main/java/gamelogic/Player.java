@@ -2,6 +2,7 @@ package main.java.gamelogic;
 
 import main.java.data.Ship;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //12 ships:
@@ -11,7 +12,7 @@ import java.util.List;
 //4 destroyers(2)
 //2 submarines(1)
 public class Player {
-    private List<Ship> ships;
+    private List<Ship> ships = new ArrayList<>();
 
     public List<Ship> getShips() {
         return ships;
@@ -19,6 +20,10 @@ public class Player {
 
     public void setShips(List<Ship> ships) {
         this.ships = ships;
+    }
+
+    public void clearShipList() {
+        this.ships.clear();
     }
 
     public void addShip(Ship ship) {

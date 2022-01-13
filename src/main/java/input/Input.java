@@ -52,7 +52,9 @@ public class Input {
         if (!(onlyDigits(secondCoordinate)) || secondCoordinate.isEmpty() || secondCoordinate.length() > 2 || secondCoordinate.equals(0))
             throw new IllegalArgumentException("after the first char, there can only be numbers and max on 2 length.(0-9)");
 
+
         int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 17, Integer.parseInt(secondCoordinate) - 1};
+
 
         return aCoordinate;
 
