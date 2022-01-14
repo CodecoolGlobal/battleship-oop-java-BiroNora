@@ -72,6 +72,14 @@ public class Board {
                 ocean[row][col].getStatus() : null);
     }
 
+    public void setSquareStatus(int[] rowCol, SquareStatus newStatus) {
+
+        if(getSquareStatus(rowCol) == null)
+            return;
+
+        ocean[rowCol[0]][rowCol[1]].setStatus(newStatus);
+    }
+
     public int getWidth() {
         return ocean[0].length;
     }

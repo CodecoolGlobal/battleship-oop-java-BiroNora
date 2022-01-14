@@ -9,7 +9,7 @@ import main.java.gamelogic.Player;
 public class App {
     public static void main(String[] args) {
         BoardFactory boardFactory = new BoardFactory();
-        Player player = new Player();
+        Player player = new Player("Player 1");
         Board board = boardFactory.randomPlacement(10, 10, ShipType.getDefaultShipSet(), player);
         Display display = new Display();
         display.printBoard(board, true);
