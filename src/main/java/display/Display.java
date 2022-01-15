@@ -33,6 +33,17 @@ public class Display {
         }
     }
 
+
+    public void printBoards(Board currentBoard, Board opponentBoard) {
+        printBoard(currentBoard, true);
+        printBoard(opponentBoard, false);
+    }
+
+    public void printSelectMove(String playerName) {
+        System.out.println(playerName + " is playing. Select a move:");
+    }
+
+
     public void printWrongCoordinateGiven() {
         System.out.println("The coordinates given are wrong. Try again.");
     }
@@ -45,15 +56,28 @@ public class Display {
         System.out.println("Shot missed.");
     }
 
+    public void printShotHit() {
+        System.out.println("Shot hit!");
+    }
+
+    public void printShipSunk() {
+        System.out.println("Ship sunk!");
+    }
+
     public void printGetCoordinateFromPlayer() {
         System.out.println("\nType in the coordinates of your ship (e.g. A1,A13) or type in QUIT to give up: ");
+    }
+
+    public void printGameOver(String winner) {
+        System.out.println("The game is over");
+        System.out.println(winner + " won.");
     }
 
     public void printFromPlayerNoInput() {
         System.out.println("You didn't type anything !");
     }
 
-    public void printplayerTypeMenu() {
+    public void printPlayerTypeMenu() {
 
         System.out.println("\n\tChoose from these choices");
         System.out.println("\t-------------------------");

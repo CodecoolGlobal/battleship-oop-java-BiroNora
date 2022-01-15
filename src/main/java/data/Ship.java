@@ -40,23 +40,15 @@ public class Ship {
         return squares;
     }
 
-    //is coordinate part of ship
-    public boolean containsCoordinate(int[] rowCol) {
-        for (Square square : squares) {
-            if(rowCol[0] == square.getY() && rowCol[1] == square.getX())
-                return true;
-        }
-        return false;
-    }
-
-    //is coordinate part of ship
-    public void hitCoordinate(int[] rowCol) {
+    //hit the ship on coordinate
+    public boolean attemptToHitCoordinate(int[] rowCol) {
         for (int i = 0; i < squares.size(); i++) {
             if(rowCol[0] == squares.get(i).getY() && rowCol[1] == squares.get(i).getX()) {
                 squares.set(i, new Square(squares.get(i).getX(), squares.get(i).getY(), SquareStatus.HIT));
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     //check if all ship squares are hit

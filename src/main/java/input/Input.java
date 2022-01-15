@@ -46,7 +46,7 @@ public class Input {
     public RuleSet.PlayerType selectPlayerType(Display display) {
 
         String choice;
-        display.printplayerTypeMenu();
+        display.printPlayerTypeMenu();
 
 
         while (true) {

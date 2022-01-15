@@ -14,6 +14,9 @@ public class Game {
     private Board player2Board;
     private RuleSet ruleSet;
 
+    private Player currentPlayer;
+    private Board currentBoard;
+
     public void newGame(Display display, Input input, BoardFactory boardFactory) {
         //display.printNewGameMenu();
         RuleSet.PlayerType playerType = input.selectPlayerType(display);  // PLAYER_VS_PLAYER, PLAYER_VS_AI, AI_VS_AI
@@ -22,11 +25,11 @@ public class Game {
         //ruleSet = new RuleSet(playerType, shipForm, shipAdjacency);
         //
         //if(playerType == RuleSet.PlayerType.PLAYER_VS_PLAYER) {
-        //    player1 = new Player();
-        //    player2 = new Player();
+        //    player1 = new Player("Player 1");
+        //    player2 = new Player("Player 2");
         //} else if (playerType == RuleSet.PlayerType.PLAYER_VS_AI) {
-        //    player1 = new Player();
-        //    player2 = new ComputerPlayer();
+        //    player1 = new Player("Player 1");
+        //    player2 = new ComputerPlayer("Player 2");
         //}
         //
         //Board boardP1 = boardFactory.randomPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
@@ -35,36 +38,62 @@ public class Game {
         //        ShipType.getDefaultShipSet(), player2);
     }
 
+    private Board getOpponentBoard(Board currentBoard) {
+        if(currentBoard == player1Board)
+            return player2Board;
+        return player1Board;
+    }
+
+    private void switchToNextPlayer() {
+        if(currentPlayer == player1) {
+            currentPlayer = player2;
+            currentBoard = player2Board;
+        } else {
+            currentPlayer = player1;
+            currentBoard = player1Board;
+        }
+    }
+
+    private boolean isGameOver() {
+        return !currentPlayer.isAlive();
+    }
+
+
     //The Game class has a loop in which players make moves. (érvényes lövés, nem lövünk ugyan oda)
     //The Game class has a logic which determines the flow of round.
     // (kiértékeljük a lövést (talált, süllyedt, nem talált))
     //The Game class has a condition on which game ends.
     //The Game class provides different game modes which use different round flows.
 
-    //select valid place to shoot
-    public int[] selectMove(Display display, Input input, Board opponentBoard) {
-        int[] rowCol = null;
-        boolean isOk = true;
-        do {
-            //rowCol = input.selectPlayerMove(display);
-            SquareStatus squareStatus = opponentBoard.getSquareStatus(rowCol);
-            if(squareStatus == null || squareStatus == SquareStatus.HIT || squareStatus == SquareStatus.MISSED) {
-                isOk = false;
-                if(squareStatus == null)
-                    display.printWrongCoordinateGiven();
-                else
-                    display.printAlreadyShotThere();
-            }
-        } while (!isOk);
+    //logic which determines the flow of round
+    public void round(Display display, Input input) {
+        Board opponentBoard = getOpponentBoard(currentBoard);
+        display.printBoards(currentBoard, opponentBoard);
+        int[] rowCol = currentPlayer.selectMove(display, input, opponentBoard, currentPlayer.getName());
+        currentPlayer.excecuteMove(rowCol, display, currentBoard, opponentBoard);
 
-        return rowCol;
+        wait(1000);
     }
 
-    //excecutes a shot (shot can MISS, HIT or SINK a ship)
-    public void excecuteMove(int[] rowCol, Display display, Board opponentBoard) {
-        SquareStatus squareStatus = opponentBoard.getSquareStatus(rowCol);
-        if(squareStatus == SquareStatus.EMPTY) {
-            display.printShotMissed();
+    private void wait(int milliSeconds) {
+        try {
+            Thread.sleep(milliSeconds);
+        } catch(InterruptedException e) {
+            // ...do nothing?
         }
+    }
+
+    public void playLoop(Display display, Input input) {
+        currentPlayer = player1;
+        currentBoard = player1Board;
+
+        do {
+            round(display, input);
+            switchToNextPlayer();
+        } while (isGameOver());
+
+        switchToNextPlayer();
+        display.printGameOver(currentPlayer.getName());
+        wait(1000);
     }
 }
