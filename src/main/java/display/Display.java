@@ -6,12 +6,7 @@ import main.java.data.SquareStatus;
 
 public class Display {
 
-    public void printSystemErrorMessage(String error) {
-
-        System.out.println(error);
-
-    }
-
+    public void printSystemErrorMessage(String error) { System.out.println(error); }
 
     //isPlayer == should draw player ships or opponent ships
     public void printBoard(Board board, boolean isPlayer) {
@@ -36,8 +31,8 @@ public class Display {
             }
             System.out.println();
         }
-
     }
+
 
     public void printBoards(Board currentBoard, Board opponentBoard) {
         printBoard(currentBoard, true);
@@ -47,6 +42,7 @@ public class Display {
     public void printSelectMove(String playerName) {
         System.out.println(playerName + " is playing. Select a move:");
     }
+
 
     public void printWrongCoordinateGiven() {
         System.out.println("The coordinates given are wrong. Try again.");
@@ -81,10 +77,10 @@ public class Display {
         System.out.println("You didn't type anything !");
     }
 
-    public void printplayerTypeMenu() {
+    public void printPlayerTypeMenu() {
 
-        System.out.println("\tChoose from these choices");
-        System.out.println("\t-------------------------\n");
+        System.out.println("\n\tChoose from these choices");
+        System.out.println("\t-------------------------");
         System.out.println("\t1 - Player Vs Player");
         System.out.println("\t2 - Player Vs Ai");
         System.out.println("\t3 - Ai Vs Ai\n");
@@ -92,29 +88,37 @@ public class Display {
 
     public void printShipFormMenu() {
 
-        System.out.println("\tChoose from these choices");
-        System.out.println("\t-------------------------\n");
-        System.out.println("\t1 - Line ship");
-        System.out.println("\t2 - Mixed ship\n");
+        System.out.println("\n\tChoose from these choices");
+        System.out.println("\t-------------------------");
+        System.out.println("\t1 - line-shaped ships only");
+        System.out.println("\t2 - Mixed-shaped ships\n");
     }
 
     public void printShipAdjacencyMenu() {
 
-        System.out.println("\tChoose from these choices");
-        System.out.println("\t-------------------------\n");
-        System.out.println("\t1 - Allowed");
-        System.out.println("\t2 - Not allowed\n");
+        System.out.println("\n\tChoose from these choices");
+        System.out.println("\t-------------------------");
+        System.out.println("\t1 - The ships can touch each other");
+        System.out.println("\t2 - Do not touch each other the ships\n");
     }
 
     public void printSelectNumber1to3() {
-        System.out.println("Please, select number from 1 to 3");
+        System.out.println("Please, select number 1 or 2 or 3");
     }
 
     public void printSelectNumber1to2() {
-        System.out.println("Please, select number from 1 to 2");
+        System.out.println("Please, select number 1 or 2");
     }
 
     public void printCommandPrompt() {
-        System.out.print(">>");
+        System.out.print("Your choice >> ");
     }
+
+    public void printCoordinatePrompt() { System.out.println("Your coordinate >> "); }
+
+    public void printFirstCharOnlyLetter() { System.out.println("the first char can only be a letter. (A-Z)"); }
+
+    public void printOnlyDigits() { System.out.println("after the first char, there can only be numbers and max on 2 length.(0-9)");}
+
+
 }

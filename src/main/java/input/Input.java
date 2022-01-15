@@ -18,7 +18,7 @@ public class Input {
         while (true) {
 
             display.printGetCoordinateFromPlayer();
-            display.printCommandPrompt();
+            display.printCoordinatePrompt();
 
             if (scanner.hasNextLine()) {
                 String command = scanner.nextLine();
@@ -30,7 +30,7 @@ public class Input {
                     break;
                 } else {
                     try {
-                        arrCoordinate = convertInputToCoordinate(command);
+                        arrCoordinate = convertInputToCoordinate(command,display);
                         break;
                     } catch (IllegalArgumentException ex) {
                         display.printSystemErrorMessage(ex.getMessage());
@@ -46,14 +46,13 @@ public class Input {
     public RuleSet.PlayerType selectPlayerType(Display display) {
 
         String choice;
-        display.printplayerTypeMenu();
+        display.printPlayerTypeMenu();
 
 
         while (true) {
             display.printCommandPrompt();
             if (scanner.hasNextLine()) {
-                choice = scanner.nextLine();
-                choice = choice.trim();
+                choice = scanner.nextLine().trim();
 
                 switch (choice) {
                     case "1":
@@ -78,8 +77,7 @@ public class Input {
         while (true) {
             display.printCommandPrompt();
             if (scanner.hasNextLine()) {
-                choice = scanner.nextLine();
-                choice = choice.trim();
+                choice = scanner.nextLine().trim();
 
                 switch (choice) {
                     case "1":
@@ -103,8 +101,7 @@ public class Input {
         while (true) {
             display.printCommandPrompt();
             if (scanner.hasNextLine()) {
-                choice = scanner.nextLine();
-                choice = choice.trim();
+                choice = scanner.nextLine().trim();
 
                 switch (choice) {
                     case "1":
@@ -120,16 +117,17 @@ public class Input {
     }
 
     // example a1,A1,a12,A12
-    private int[] convertInputToCoordinate(String input) {
+    private int[] convertInputToCoordinate(String input,Display display) {
 
         String coordinate = input.toUpperCase().trim();
         String secondCoordinate = coordinate.substring(1, coordinate.length());
 
         if (!(checkUpperCharIsAlphabetical(coordinate.charAt(0))))
-            throw new IllegalArgumentException("the first char can only be a letter. (A-Z)");
+            display.printFirstCharOnlyLetter();
+
 
         if (!(onlyDigits(secondCoordinate)) || secondCoordinate.isEmpty() || secondCoordinate.length() > 2 || secondCoordinate.equals(0))
-            throw new IllegalArgumentException("after the first char, there can only be numbers and max on 2 length.(0-9)");
+            display.printOnlyDigits();
 
 
         int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 17, Integer.parseInt(secondCoordinate) - 1};
