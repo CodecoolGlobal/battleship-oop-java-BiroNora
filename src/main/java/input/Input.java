@@ -31,12 +31,13 @@ public class Input {
                     display.goodbye();
                     System.exit(0);
                 } else {
-                    try {
-                        arrCoordinate = convertInputToCoordinate(command,display);
+                   // try {
+                        arrCoordinate = convertInputToCoordinate(command, display);
+                        if (arrCoordinate==null) continue;
                         break;
-                    } catch (IllegalArgumentException ex) {
-                        display.printSystemErrorMessage(ex.getMessage());
-                    }
+                    //} catch (IllegalArgumentException ex) {
+                    //    display.printSystemErrorMessage(ex.getMessage());
+                    //}
                 }
             }
         }
@@ -117,10 +118,15 @@ public class Input {
             }
         }
     }
+
     public Battleship.MenuSelection getMainMenuInput(Display display) {
 
         String choice;
-        display.printMainMenu();
+        display.printMainMenu("******* BATTLESHIP GAME V1.0 *******",
+                "Choose from these choices",
+                "1 - New Game",
+                "2 - High Score",
+                "3 - Quit");
 
 
         while (true) {
@@ -143,17 +149,20 @@ public class Input {
     }
 
     // example a1,A1,a12,A12
-    private int[] convertInputToCoordinate(String input,Display display) {
+    private int[] convertInputToCoordinate(String input, Display display) {
 
         String coordinate = input.toUpperCase().trim();
         String secondCoordinate = coordinate.substring(1, coordinate.length());
 
-        if (!(checkUpperCharIsAlphabetical(coordinate.charAt(0))))
+        if (!(checkUpperCharIsAlphabetical(coordinate.charAt(0)))) {
             display.printFirstCharOnlyLetter();
+            return null;
+        }
 
-
-        if (!(onlyDigits(secondCoordinate)) || secondCoordinate.isEmpty() || secondCoordinate.length() > 2 || secondCoordinate.equals(0))
+        if (!(onlyDigits(secondCoordinate)) || secondCoordinate.isEmpty() || secondCoordinate.length() > 2 || secondCoordinate.equals(0)) {
             display.printOnlyDigits();
+            return null;
+        }
 
 
         int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 'A', Integer.parseInt(secondCoordinate) - 1};

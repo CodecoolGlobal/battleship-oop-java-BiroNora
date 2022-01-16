@@ -103,11 +103,8 @@ public class Display {
         System.out.println("\t2 - Don't be adjacency\n");
     }
 
-    public void printMainMenu() {
+    public void printMainMenu(String startingTitle, String subTitle, String... menuItems) {
 
-
-        String startingTitle = "******* BATTLESHIP GAME V1.0 *******";
-        String subTitle = "Choose from these choices";
         String tabSign = "\t";
         String cRet = "\n";
         String separatorSign = "-";
@@ -115,10 +112,10 @@ public class Display {
         System.out.print(!startingTitle.isEmpty() ? cRet + tabSign + startingTitle + cRet : "");
         System.out.println(cRet + tabSign + subTitle);
         System.out.println(tabSign + separatorSign.repeat(subTitle.length()));
-
-        System.out.println(tabSign + "1 - New Game");
-        System.out.println(tabSign + "2 - High Score");
-        System.out.println(tabSign + "3 - Quit" + cRet);
+        for (String menuItem : menuItems) {
+            System.out.println(tabSign + menuItem);
+        }
+        System.out.println();
     }
 
     public void printSelectNumber1to3() {
