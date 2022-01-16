@@ -22,7 +22,7 @@ public class Battleship {
 
     public void mainMenu() {
         MenuSelection menuSelection = MenuSelection.NEW_GAME;
-        //menuSelection = input.getMainMenuInput(display);
+        menuSelection = input.getMainMenuInput(display);
         if(menuSelection == MenuSelection.NEW_GAME) {
             game.newGame(display, input, boardFactory);
         } else if(menuSelection == MenuSelection.HIGH_SCORE) {
