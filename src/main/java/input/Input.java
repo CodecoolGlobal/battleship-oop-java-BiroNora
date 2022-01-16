@@ -1,6 +1,7 @@
 package main.java.input;
 
 import main.java.display.Display;
+import main.java.gamelogic.Battleship;
 import main.java.gamelogic.RuleSet;
 
 import java.util.Scanner;
@@ -112,6 +113,30 @@ public class Input {
 
                     default:
                         display.printSelectNumber1to2();
+                }
+            }
+        }
+    }
+    public Battleship.MenuSelection getMainMenuInput(Display display) {
+
+        String choice;
+        display.printMainMenu();
+
+
+        while (true) {
+            display.printCommandPrompt();
+            if (scanner.hasNextLine()) {
+                choice = scanner.nextLine().trim();
+
+                switch (choice) {
+                    case "1":
+                        return Battleship.MenuSelection.NEW_GAME;
+                    case "2":
+                        return Battleship.MenuSelection.HIGH_SCORE;
+                    case "3":
+                        return Battleship.MenuSelection.QUIT;
+                    default:
+                        display.printSelectNumber1to3();
                 }
             }
         }
