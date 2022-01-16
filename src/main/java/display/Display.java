@@ -122,4 +122,12 @@ public class Display {
     public void goodbye() {
         System.out.println("Goodbye!");
     }
+
+    public String convertFromRowColToString(int[] rowCol) {
+
+        int x=rowCol[0];
+        char c= (char)(x+17+'0');
+
+        return String.valueOf(c)+String.valueOf(rowCol[1]);
+    }
 }
