@@ -120,5 +120,12 @@ public class Display {
 
     public void printOnlyDigits() { System.out.println("after the first char, there can only be numbers and max on 2 length.(0-9)");}
 
+    public String convertFromRowColToString(int[] rowCol) {
+
+        int x=rowCol[0];
+        char c= (char)(x+17+'0');
+
+        return String.valueOf(c)+String.valueOf(rowCol[1]);
+    }
 
 }
