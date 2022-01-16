@@ -80,16 +80,16 @@ public class Display {
 
         System.out.println("\n\tChoose from these choices");
         System.out.println("\t-------------------------");
-        System.out.println("\t1 - Player Vs Player");
-        System.out.println("\t2 - Player Vs Ai");
-        System.out.println("\t3 - Ai Vs Ai\n");
+        System.out.println("\t1 - Player versus Player");
+        System.out.println("\t2 - Player versus AI");
+        System.out.println("\t3 - AI versus AI\n");
     }
 
     public void printShipFormMenu() {
 
         System.out.println("\n\tChoose from these choices");
         System.out.println("\t-------------------------");
-        System.out.println("\t1 - line-shaped ships only");
+        System.out.println("\t1 - Line-shaped ships only");
         System.out.println("\t2 - Mixed-shaped ships\n");
     }
 
@@ -113,7 +113,7 @@ public class Display {
         System.out.print("Your choice >> ");
     }
 
-    public void printCoordinatePrompt() { System.out.println("Your coordinate >> "); }
+    public void printCoordinatePrompt() { System.out.print("Your coordinate >> "); }
 
     public void printFirstCharOnlyLetter() { System.out.println("the first char can only be a letter. (A-Z)"); }
 
