@@ -43,7 +43,6 @@ public class Display {
         System.out.println(playerName + " is playing. Select a move:");
     }
 
-
     public void printWrongCoordinateGiven() {
         System.out.println("The coordinates given are wrong. Try again.");
     }
@@ -65,11 +64,11 @@ public class Display {
     }
 
     public void printGetCoordinateFromPlayer() {
-        System.out.println("\nType in the coordinates of your ship (e.g. A1,A13) or type in QUIT to give up: ");
+        System.out.println("\nType in the coordinates of your ship (e.g. A1,A12) or type in QUIT to give up: ");
     }
 
     public void printGameOver(String winner) {
-        System.out.println("The game is over");
+        System.out.println("Game over.");
         System.out.println(winner + " won.");
     }
 
@@ -120,6 +119,10 @@ public class Display {
 
     public void printOnlyDigits() { System.out.println("after the first char, there can only be numbers and max on 2 length.(0-9)");}
 
+    public void goodbye() {
+        System.out.println("Goodbye!");
+    }
+
     public String convertFromRowColToString(int[] rowCol) {
 
         int x=rowCol[0];
@@ -127,5 +130,4 @@ public class Display {
 
         return String.valueOf(c)+String.valueOf(rowCol[1]);
     }
-
 }

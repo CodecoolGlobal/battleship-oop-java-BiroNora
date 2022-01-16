@@ -27,7 +27,8 @@ public class Input {
                     continue;
                 }
                 if (command.toUpperCase().equals("QUIT")) {
-                    break;
+                    display.goodbye();
+                    System.exit(0);
                 } else {
                     try {
                         arrCoordinate = convertInputToCoordinate(command,display);
@@ -130,7 +131,7 @@ public class Input {
             display.printOnlyDigits();
 
 
-        int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 17, Integer.parseInt(secondCoordinate) - 1};
+        int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 'A', Integer.parseInt(secondCoordinate) - 1};
 
 
         return aCoordinate;

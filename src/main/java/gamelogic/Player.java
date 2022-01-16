@@ -18,6 +18,7 @@ import java.util.List;
 public class Player {
     private String name;
     private List<Ship> ships = new ArrayList<>();
+    private int score = 0;
 
     public Player(String name) {
         this.name = name;
@@ -45,6 +46,18 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void incrementScore() {
+        this.score++;
     }
 
     //calculates hitting a ship (ship is HIT or SUNK)
@@ -78,7 +91,7 @@ public class Player {
         boolean isOk = true;
         do {
             display.printSelectMove(currentPlayerName);
-            //rowCol = input.selectPlayerMove(display);
+            rowCol = input.getCoordinateFromUser(display);
             SquareStatus squareStatus = opponentBoard.getSquareStatus(rowCol);
             if(squareStatus == null || squareStatus == SquareStatus.HIT || squareStatus == SquareStatus.MISSED) {
                 isOk = false;
@@ -93,14 +106,15 @@ public class Player {
     }
 
     //excecutes a shot (shot can MISS, HIT or SINK a ship)
-    public void excecuteMove(int[] rowCol, Display display, Board currentBoard, Board opponentBoard) {
+    public void excecuteMove(int[] rowCol, Display display, Board currentBoard, Board opponentBoard, Player opponent) {
         SquareStatus squareStatus = opponentBoard.getSquareStatus(rowCol);
         SquareStatus newSquareStatus = SquareStatus.MISSED;
         Ship.ShipHitStatus shipHitStatus = Ship.ShipHitStatus.HIT;
 
         if(squareStatus == SquareStatus.SHIP) {
             newSquareStatus = SquareStatus.HIT;
-            shipHitStatus = hitShip(rowCol);
+            shipHitStatus = opponent.hitShip(rowCol);
+            incrementScore();
         }
 
         opponentBoard.setSquareStatus(rowCol, newSquareStatus);
