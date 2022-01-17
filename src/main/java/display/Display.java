@@ -65,8 +65,11 @@ public class Display {
         System.out.println("Ship sunk!");
     }
 
-    public void printGetCoordinateFromPlayer() {
-        System.out.println("\nType in the coordinates of your ship (e.g. A1,A12) or type in QUIT to give up: ");
+    public void printGetCoordinateFromPlayer(Board board) {
+        int[] arrMin = new int[]{0,0};
+        int[] arrMax = new int[]{board.getWidth()-1,board.getHeight()};
+        System.out.println("\nType in the coordinates of your ship (e.g. "+
+                convertFromRowColToString(arrMin)+" - "+convertFromRowColToString(arrMax)+" ) or type in QUIT to give up: ");
     }
 
     public void printGameOver(String winner) {
@@ -78,40 +81,17 @@ public class Display {
         System.out.println("You didn't type anything !");
     }
 
-    public void printPlayerTypeMenu() {
-
-        System.out.println("\n\tWhat type of game should be");
-        System.out.println("\t-------------------------");
-        System.out.println("\t1 - Player versus Player");
-        System.out.println("\t2 - Player versus AI");
-        System.out.println("\t3 - AI versus AI\n");
-    }
-
-    public void printShipFormMenu() {
-
-        System.out.println("\n\tWhat shape of the ships should be");
-        System.out.println("\t-------------------------");
-        System.out.println("\t1 - Line-shaped ships only");
-        System.out.println("\t2 - Mixed-shaped ships\n");
-    }
-
-    public void printShipAdjacencyMenu() {
-
-        System.out.println("\n\tThere should be adjacency between the ships");
-        System.out.println("\t-------------------------");
-        System.out.println("\t1 - Be adjacency");
-        System.out.println("\t2 - Don't be adjacency\n");
-    }
-
-    public void printMainMenu(String startingTitle, String subTitle, String... menuItems) {
+    public void printMenu(String startingTitle, String subTitle, String... menuItems) {
 
         String tabSign = "\t";
         String cRet = "\n";
         String separatorSign = "-";
 
         System.out.print(!startingTitle.isEmpty() ? cRet + tabSign + startingTitle + cRet : "");
+
         System.out.println(cRet + tabSign + subTitle);
         System.out.println(tabSign + separatorSign.repeat(subTitle.length()));
+
         for (String menuItem : menuItems) {
             System.out.println(tabSign + menuItem);
         }
@@ -140,6 +120,9 @@ public class Display {
 
     public void printOnlyDigits() {
         System.out.println("after the first char, there can only be numbers and max on 2 length.(0-9)");
+    }
+    public void printOutOfRange() {
+        System.out.println("The coordinate is outside the game board.");
     }
 
     public void goodbye() {

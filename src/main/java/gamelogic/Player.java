@@ -91,7 +91,7 @@ public class Player {
         boolean isOk = true;
         do {
             display.printSelectMove(currentPlayerName);
-            rowCol = input.getCoordinateFromUser(display);
+            rowCol = input.getCoordinateFromUser(display,opponentBoard);
             SquareStatus squareStatus = opponentBoard.getSquareStatus(rowCol);
             if(squareStatus == null || squareStatus == SquareStatus.HIT || squareStatus == SquareStatus.MISSED) {
                 isOk = false;
