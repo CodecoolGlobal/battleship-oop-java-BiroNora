@@ -88,9 +88,10 @@ public class Player {
     //select valid place to shoot
     public int[] selectMove(Display display, Input input, Board opponentBoard, String currentPlayerName) {
         int[] rowCol = null;
-        boolean isOk = true;
+        boolean isOk;
+        display.printSelectMove(currentPlayerName);
         do {
-            display.printSelectMove(currentPlayerName);
+            isOk = true;
             rowCol = input.getCoordinateFromUser(display,opponentBoard);
             SquareStatus squareStatus = opponentBoard.getSquareStatus(rowCol);
             if(squareStatus == null || squareStatus == SquareStatus.HIT || squareStatus == SquareStatus.MISSED) {
