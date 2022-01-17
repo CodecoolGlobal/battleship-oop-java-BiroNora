@@ -24,17 +24,17 @@ public enum ShipType {
         //4 destroyers(2)
         //2 submarines(1)
         List<ShipType> shipTypeList = new ArrayList<>();
-        shipTypeList.add(CARRIER);
-        shipTypeList.add(BATTLESHIP);
-        shipTypeList.add(BATTLESHIP);
-        shipTypeList.add(CRUISER);
-        shipTypeList.add(CRUISER);
-        shipTypeList.add(CRUISER);
-        shipTypeList.add(DESTROYER);
-        shipTypeList.add(DESTROYER);
-        shipTypeList.add(DESTROYER);
-        shipTypeList.add(DESTROYER);
-        shipTypeList.add(SUBMARINE);
+        //shipTypeList.add(CARRIER);
+        //shipTypeList.add(BATTLESHIP);
+        //shipTypeList.add(BATTLESHIP);
+        //shipTypeList.add(CRUISER);
+        //shipTypeList.add(CRUISER);
+        //shipTypeList.add(CRUISER);
+        //shipTypeList.add(DESTROYER);
+        //shipTypeList.add(DESTROYER);
+        //shipTypeList.add(DESTROYER);
+        //shipTypeList.add(DESTROYER);
+        //shipTypeList.add(SUBMARINE);
         shipTypeList.add(SUBMARINE);
         return shipTypeList;
     }

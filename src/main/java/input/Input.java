@@ -224,6 +224,14 @@ public class Input {
         return m.matches();
     }
 
+    public String pleaseEnterYourName(Display display) {
+        String name = "";
+        do {
+            display.printEnterYourName();
+            name = scanner.nextLine();
+        } while(name == null || name.equals(""));
+        return name;
+    }
 }
 
 

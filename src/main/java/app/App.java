@@ -2,6 +2,7 @@ package main.java.app;
 
 import main.java.data.Board;
 import main.java.data.BoardFactory;
+import main.java.data.HighScore;
 import main.java.data.ShipType;
 import main.java.display.Display;
 import main.java.gamelogic.Battleship;
