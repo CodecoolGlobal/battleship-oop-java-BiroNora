@@ -18,7 +18,6 @@ import java.util.List;
 public class Player {
     private String name;
     private List<Ship> ships = new ArrayList<>();
-    private int score = 0;
 
     public Player(String name) {
         this.name = name;
@@ -46,18 +45,6 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public void incrementScore() {
-        this.score++;
     }
 
     //calculates hitting a ship (ship is HIT or SUNK)
@@ -115,7 +102,6 @@ public class Player {
         if(squareStatus == SquareStatus.SHIP) {
             newSquareStatus = SquareStatus.HIT;
             shipHitStatus = opponent.hitShip(rowCol);
-            incrementScore();
         }
 
         opponentBoard.setSquareStatus(rowCol, newSquareStatus);
@@ -129,5 +115,9 @@ public class Player {
         }else if(shipHitStatus == Ship.ShipHitStatus.SUNK) {
             display.printShipSunk();
         }
+    }
+
+    public boolean isHuman() {
+        return true;
     }
 }

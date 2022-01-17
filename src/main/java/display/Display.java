@@ -66,10 +66,10 @@ public class Display {
     }
 
     public void printGetCoordinateFromPlayer(Board board) {
-        int[] arrMin = new int[]{0,1};
-        int[] arrMax = new int[]{board.getWidth()-1,board.getHeight()};
-        System.out.println("\nType in the coordinates of your ship (e.g. "+
-                convertFromRowColToString(arrMin)+" - "+convertFromRowColToString(arrMax)+" ) or type in QUIT to give up: ");
+        int[] arrMin = new int[]{0, 1};
+        int[] arrMax = new int[]{board.getWidth() - 1, board.getHeight()};
+        System.out.println("\nType in the coordinates of your ship (e.g. " +
+                convertFromRowColToString(arrMin) + " - " + convertFromRowColToString(arrMax) + " ) or type in QUIT to give up: ");
     }
 
     public void printGameOver(String winner) {
@@ -121,6 +121,7 @@ public class Display {
     public void printOnlyDigits() {
         System.out.println("after the first char, there can only be numbers and max on 2 length.(0-9)");
     }
+
     public void printOutOfRange() {
         System.out.println("The coordinate is outside the game board.");
     }
@@ -135,5 +136,16 @@ public class Display {
         char c = (char) (x + 17 + '0');
 
         return String.valueOf(c) + String.valueOf(rowCol[1]);
+    }
+
+    public void drawScoreBoard(String[][] scoreBoard) {
+        System.out.println("***HIGH SCORES:***");
+        for (int row = 0; row < scoreBoard.length; row++) {
+            System.out.println(row + 1 + ". " + scoreBoard[row][0] + " - " + scoreBoard[row][1]);
+        }
+    }
+
+    public void printEnterYourName() {
+        System.out.println("Please enter your name:");
     }
 }

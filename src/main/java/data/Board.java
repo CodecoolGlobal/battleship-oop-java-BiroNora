@@ -91,4 +91,16 @@ public class Board {
     public Square[][] getOcean() {
         return ocean;
     }
+
+    public int calculateScore() {
+        int score = 0;
+        for (int row = 0; row < ocean.length; row++) {
+            for (int col = 0; col < ocean[0].length; col++) {
+                if(ocean[row][col].getStatus() != SquareStatus.HIT && ocean[row][col].getStatus() != SquareStatus.MISSED) {
+                    score++;
+                }
+            }
+        }
+        return score * 100;
+    }
 }
