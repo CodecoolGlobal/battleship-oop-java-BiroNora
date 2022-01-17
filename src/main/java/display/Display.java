@@ -66,7 +66,7 @@ public class Display {
     }
 
     public void printGetCoordinateFromPlayer(Board board) {
-        int[] arrMin = new int[]{0,0};
+        int[] arrMin = new int[]{0,1};
         int[] arrMax = new int[]{board.getWidth()-1,board.getHeight()};
         System.out.println("\nType in the coordinates of your ship (e.g. "+
                 convertFromRowColToString(arrMin)+" - "+convertFromRowColToString(arrMax)+" ) or type in QUIT to give up: ");
