@@ -1,9 +1,11 @@
 package main.java.input;
 
+import main.java.data.Board;
 import main.java.display.Display;
 import main.java.gamelogic.Battleship;
 import main.java.gamelogic.RuleSet;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,13 +14,13 @@ public class Input {
 
     Scanner scanner = new Scanner(System.in);
 
-    public int[] getCoordinateFromUser(Display display) {
+    public int[] getCoordinateFromUser(Display display, Board board) {
 
         int[] arrCoordinate = new int[2];
 
         while (true) {
 
-            display.printGetCoordinateFromPlayer();
+            display.printGetCoordinateFromPlayer(board);
             display.printCoordinatePrompt();
 
             if (scanner.hasNextLine()) {
@@ -31,25 +33,36 @@ public class Input {
                     display.goodbye();
                     System.exit(0);
                 } else {
-                   // try {
-                        arrCoordinate = convertInputToCoordinate(command, display);
-                        if (arrCoordinate==null) continue;
-                        break;
-                    //} catch (IllegalArgumentException ex) {
-                    //    display.printSystemErrorMessage(ex.getMessage());
-                    //}
+                    arrCoordinate = convertInputToCoordinate(command, display);
+
+                    if (arrCoordinate == null) continue;
+                    if (checkBoardOutOfRange(arrCoordinate,board,display)) continue;
+                    break;
                 }
             }
         }
-
         return arrCoordinate == null ? null : arrCoordinate;
 
+    }
+
+    public boolean checkBoardOutOfRange(int[] arrayInt, Board board, Display display) {
+
+        if ((arrayInt[0]<0 || arrayInt[0] > board.getWidth()-1) || (arrayInt[1]<0 || arrayInt[1]>board.getHeight()-1)) {
+            display.printOutOfRange();
+            return true;
+        }
+
+        return false;
     }
 
     public RuleSet.PlayerType selectPlayerType(Display display) {
 
         String choice;
-        display.printPlayerTypeMenu();
+        display.printMenu("",
+                "What type of game should be",
+                "1 - Player versus Player",
+                "2 - Player versus AI",
+                "3 - AI versus AI");
 
 
         while (true) {
@@ -74,7 +87,10 @@ public class Input {
     public RuleSet.ShipForm selectShipForm(Display display) {
 
         String choice;
-        display.printShipFormMenu();
+        display.printMenu("",
+                "What shape of the ships should be",
+                "1 - Line-shaped ships only",
+                "2 - Mixed-shaped ships");
 
 
         while (true) {
@@ -98,7 +114,10 @@ public class Input {
     public RuleSet.ShipAdjacency selectShipAdjacency(Display display) {
 
         String choice;
-        display.printShipAdjacencyMenu();
+        display.printMenu("",
+                "There should be adjacency between the ships",
+                "1 - Be adjacency",
+                "2 - Don't be adjacency");
 
 
         while (true) {
@@ -122,7 +141,7 @@ public class Input {
     public Battleship.MenuSelection getMainMenuInput(Display display) {
 
         String choice;
-        display.printMainMenu("******* BATTLESHIP GAME V1.0 *******",
+        display.printMenu("******* BATTLESHIP GAME V1.0 *******",
                 "Choose from these choices",
                 "1 - New Game",
                 "2 - High Score",
