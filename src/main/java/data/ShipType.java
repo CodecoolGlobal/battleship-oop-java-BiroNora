@@ -1,5 +1,7 @@
 package main.java.data;
 
+import main.java.utility.RandomGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,11 @@ public enum ShipType {
     BATTLESHIP(4),
     CRUISER(3),
     DESTROYER(2),
-    SUBMARINE(1);
+    SUBMARINE(1),
+    CARRIER_L_SHAPE(5),
+    CARRIER_T_SHAPE(5),
+    BATTLESHIP_Z_SHAPE(4),
+    CRUISER_L_SHAPE(3);
 
     final int numberOfSquares;
 
@@ -33,8 +39,34 @@ public enum ShipType {
 
     public static List<ShipType> getMixedShipSet() {
         List<ShipType> shipTypeList = new ArrayList<>();
-        //TODO
-        //5 ships:
+        int randNum = RandomGenerator.getRandomNumber(1, 3 + 1);
+        if(randNum == 1)
+            shipTypeList.add(CARRIER_L_SHAPE);
+        else if(randNum == 2)
+            shipTypeList.add(CARRIER_T_SHAPE);
+        else
+            shipTypeList.add(CARRIER);
+
+        randNum = RandomGenerator.getRandomNumber(1, 3 + 1);
+        if(randNum < 3)
+            shipTypeList.add(BATTLESHIP_Z_SHAPE);
+        else
+            shipTypeList.add(BATTLESHIP);
+
+        randNum = RandomGenerator.getRandomNumber(1, 3 + 1);
+        if(randNum < 3)
+            shipTypeList.add(CRUISER_L_SHAPE);
+        else
+            shipTypeList.add(CRUISER);
+
+        randNum = RandomGenerator.getRandomNumber(1, 3 + 1);
+        if(randNum < 3)
+            shipTypeList.add(CRUISER_L_SHAPE);
+        else
+            shipTypeList.add(CRUISER);
+
+        shipTypeList.add(DESTROYER);
+
         return shipTypeList;
     }
 
