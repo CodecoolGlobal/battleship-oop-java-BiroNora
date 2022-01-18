@@ -6,7 +6,6 @@ import main.java.display.Display;
 import main.java.gamelogic.Battleship;
 import main.java.gamelogic.RuleSet;
 
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +16,7 @@ public class Input {
 
     public int[] getCoordinateFromUser(Display display, Board board) {
 
-        int[] arrCoordinate = new int[2];
+        int[] rowCol = new int[2];
 
         while (true) {
 
@@ -34,21 +33,21 @@ public class Input {
                     display.printGoodbye();
                     System.exit(0);
                 } else {
-                    arrCoordinate = convertInputToCoordinate(command, display);
+                    rowCol = convertInputToCoordinate(command, display);
 
-                    if (arrCoordinate == null) continue;
-                    if (checkBoardOutOfRange(arrCoordinate,board,display)) continue;
+                    if (rowCol == null) continue;
+                    if (checkBoardOutOfRange(rowCol, board, display)) continue;
                     break;
                 }
             }
         }
-        return arrCoordinate;
+        return rowCol;
 
     }
 
-    public boolean checkBoardOutOfRange(int[] arrayInt, Board board, Display display) {
+    public boolean checkBoardOutOfRange(int[] rowCol, Board board, Display display) {
 
-        if ((arrayInt[0]<0 || arrayInt[0] > board.getWidth()-1) || (arrayInt[1]<0 || arrayInt[1]>board.getHeight()-1)) {
+        if ((rowCol[0] < 0 || rowCol[0] > board.getWidth() - 1) || (rowCol[1] < 0 || rowCol[1] > board.getHeight() - 1)) {
             display.printOutOfRange();
             return true;
         }
@@ -252,10 +251,10 @@ public class Input {
         }
 
 
-        int[] aCoordinate = new int[]{(int) coordinate.charAt(0) - 'A', Integer.parseInt(secondCoordinate) - 1};
+        int[] rowCol = new int[]{(int) coordinate.charAt(0) - 'A', Integer.parseInt(secondCoordinate) - 1};
 
 
-        return aCoordinate;
+        return rowCol;
 
     }
 
@@ -297,7 +296,7 @@ public class Input {
         do {
             display.printEnterYourName();
             name = scanner.nextLine();
-        } while(name == null || name.equals(""));
+        } while (name == null || name.equals(""));
         return name.trim();
     }
 
@@ -311,9 +310,9 @@ public class Input {
         do {
             display.printGetDirectionFromPlayer();
             String inputStr = scanner.nextLine();
-            if(inputStr != null && inputStr.length() == 1)
+            if (inputStr != null && inputStr.length() == 1)
                 direction = Direction.getDirectionFromCharacter(inputStr.charAt(0));
-        } while(direction == null);
+        } while (direction == null);
 
         return direction;
     }
@@ -324,7 +323,7 @@ public class Input {
             number = -1;
             display.printIsShipPlacementOk();
             String inputStr = scanner.nextLine();
-            if(inputStr != null && inputStr.length() == 1 && Character.isDigit(inputStr.charAt(0)))
+            if (inputStr != null && inputStr.length() == 1 && Character.isDigit(inputStr.charAt(0)))
                 number = Integer.parseInt(inputStr);
         } while (!(number == 1 || number == 2));
         return number == 1;
