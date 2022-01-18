@@ -18,14 +18,14 @@ public class Display {
             for (int col = -1; col < ocean[0].length; col++) {
                 String square = ".";
                 if (row == -1) {
-                    square = "" + (-1 < col ? (col + 1) : " ");
+                    square = "" + (-1 < col ? (col + 1) : "  ");
                 } else if (col == -1) {
-                    square = "" + (char) ('A' + row);
+                    square = "" + (char) ('A' + row) + " ";
                 } else {
                     if (ocean[row][col].getStatus() == SquareStatus.SHIP && isPlayer) {
-                        square = "#";
+                        square = "\u001B[31m" + "#" + "\u001B[0m";
                     } else if (ocean[row][col].getStatus() == SquareStatus.HIT) {
-                        square = "X";
+                        square = "\u001B[32m" + "X" + "\u001B[0m";
                     } else if (ocean[row][col].getStatus() == SquareStatus.MISSED) {
                         square = "O";
                     }
@@ -34,6 +34,7 @@ public class Display {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
 
@@ -139,9 +140,9 @@ public class Display {
         int longestName = 0;
         int shortestName = Integer.MAX_VALUE;
         for (int row = 0; row < scoreBoard.length; row++) {
-            if(longestName < scoreBoard[row][0].length())
+            if (longestName < scoreBoard[row][0].length())
                 longestName = scoreBoard[row][0].length();
-            if(scoreBoard[row][0].length() < shortestName)
+            if (scoreBoard[row][0].length() < shortestName)
                 shortestName = scoreBoard[row][0].length();
         }
 
@@ -149,7 +150,7 @@ public class Display {
         System.out.println("***HIGH SCORES:***");
         for (int row = 0; row < scoreBoard.length; row++) {
             String spaces = generateSpaces(longestName - scoreBoard[row][0].length());
-            System.out.println(row + 1 + ". " + (row+1 < 10 ? " " : "") + scoreBoard[row][0] + spaces + " - " + spacesMax + scoreBoard[row][1]);
+            System.out.println(row + 1 + ". " + (row + 1 < 10 ? " " : "") + scoreBoard[row][0] + spaces + " - " + spacesMax + scoreBoard[row][1]);
         }
     }
 
