@@ -16,26 +16,29 @@ public enum ShipType {
         this.numberOfSquares = numberOfSquares;
     }
 
-    public static List<ShipType> getDefaultShipSet() {
-        //12 ships:
+    public static List<ShipType> getLineShipSet() {
+        //5 ships:
         //1 carrier(5)
-        //2 battleships(4)
-        //3 cruisers(3)
-        //4 destroyers(2)
-        //2 submarines(1)
+        //1 battleships(4)
+        //2 cruisers(3)
+        //1 destroyers(2)
         List<ShipType> shipTypeList = new ArrayList<>();
-        //shipTypeList.add(CARRIER);
-        //shipTypeList.add(BATTLESHIP);
-        //shipTypeList.add(BATTLESHIP);
-        //shipTypeList.add(CRUISER);
-        //shipTypeList.add(CRUISER);
-        //shipTypeList.add(CRUISER);
-        //shipTypeList.add(DESTROYER);
-        //shipTypeList.add(DESTROYER);
-        //shipTypeList.add(DESTROYER);
-        //shipTypeList.add(DESTROYER);
-        //shipTypeList.add(SUBMARINE);
-        shipTypeList.add(SUBMARINE);
+        shipTypeList.add(CARRIER);
+        shipTypeList.add(BATTLESHIP);
+        shipTypeList.add(CRUISER);
+        shipTypeList.add(CRUISER);
+        shipTypeList.add(DESTROYER);
         return shipTypeList;
+    }
+
+    public static List<ShipType> getMixedShipSet() {
+        List<ShipType> shipTypeList = new ArrayList<>();
+        //TODO
+        //5 ships:
+        return shipTypeList;
+    }
+
+    public int getNumberOfSquares() {
+        return numberOfSquares;
     }
 }

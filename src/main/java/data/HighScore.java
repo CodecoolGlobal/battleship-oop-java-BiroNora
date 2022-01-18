@@ -1,6 +1,6 @@
 package main.java.data;
 
-import main.java.utility.FileIO;
+import main.java.utility.FileInOut;
 
 public class HighScore {
     private final String pathName = "high score.txt";
@@ -29,7 +29,7 @@ public class HighScore {
     }
 
     public boolean readFromFile() {
-        String[] lines = FileIO.readLines(pathName);
+        String[] lines = FileInOut.readLines(pathName);
         scoreBoard = new String[scoreBoardRows][scoreBoardCols];
         for (int i = 0; i < lines.length; i++) {
             if(i % 2 == 0) {
@@ -50,7 +50,7 @@ public class HighScore {
                 lines[i] = scoreBoard[i/2][1];
             }
         }
-        FileIO.writeLinesToFile(lines, pathName);
+        FileInOut.writeLinesToFile(lines, pathName);
     }
 
     //add new entry to scoreboard
