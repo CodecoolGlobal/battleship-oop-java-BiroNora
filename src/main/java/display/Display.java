@@ -36,7 +36,6 @@ public class Display {
         }
     }
 
-
     public void printBoards(Board currentBoard, Board opponentBoard) {
         printBoard(currentBoard, true);
         printBoard(opponentBoard, false);
@@ -59,11 +58,11 @@ public class Display {
     }
 
     public void printShotHit() {
-        System.out.println("Shot hit!");
+        System.out.println("Ship hit!");
     }
 
     public void printShipSunk() {
-        System.out.println("Ship sunk!");
+        System.out.println("Ship hit and sunk!");
     }
 
     public void printGetCoordinateFromPlayer(Board board) {
