@@ -42,12 +42,12 @@ public class Board {
     }
 
     //verifies if placement of ship is possible
-    public boolean isShipPlacementPossible(Ship ship) {
+    public boolean isShipPlacementPossible(Ship ship, boolean checkForAdjacency) {
         List<Square> squares = ship.getSquares();
         for (Square square : squares) {
             if (!isSquareEmpty(new int[]{square.getY(), square.getX()}))
                 return false;
-            if (!isSquareNeighboursEmpty(new int[]{square.getY(), square.getX()}))
+            if (checkForAdjacency && !isSquareNeighboursEmpty(new int[]{square.getY(), square.getX()}))
                 return false;
         }
         return true;
@@ -58,6 +58,14 @@ public class Board {
         List<Square> squares = ship.getSquares();
         for (Square square : squares) {
             ocean[square.getY()][square.getX()].setStatus(SquareStatus.SHIP);
+        }
+    }
+
+    //remove ship from the board
+    public void removeShip(Ship ship) {
+        List<Square> squares = ship.getSquares();
+        for (Square square : squares) {
+            ocean[square.getY()][square.getX()].setStatus(SquareStatus.EMPTY);
         }
     }
 
@@ -92,11 +100,12 @@ public class Board {
         return ocean;
     }
 
+    //the more times a player misses, the fewer points they get
     public int calculateScore() {
         int score = 0;
         for (int row = 0; row < ocean.length; row++) {
             for (int col = 0; col < ocean[0].length; col++) {
-                if(ocean[row][col].getStatus() != SquareStatus.HIT && ocean[row][col].getStatus() != SquareStatus.MISSED) {
+                if(ocean[row][col].getStatus() != SquareStatus.MISSED) {
                     score++;
                 }
             }

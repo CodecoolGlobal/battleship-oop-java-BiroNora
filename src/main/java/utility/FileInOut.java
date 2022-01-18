@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileIO {
+public class FileInOut {
     public static String[] readLines(String pathName) {
         File file = new File(pathName);
         List<String> lines = new ArrayList<>();

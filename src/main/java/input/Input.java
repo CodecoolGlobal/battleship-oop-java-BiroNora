@@ -1,11 +1,12 @@
 package main.java.input;
 
 import main.java.data.Board;
+import main.java.data.Direction;
 import main.java.display.Display;
 import main.java.gamelogic.Battleship;
 import main.java.gamelogic.RuleSet;
 
-import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,7 +31,7 @@ public class Input {
                     continue;
                 }
                 if (command.toUpperCase().equals("QUIT")) {
-                    display.goodbye();
+                    display.printGoodbye();
                     System.exit(0);
                 } else {
                     arrCoordinate = convertInputToCoordinate(command, display);
@@ -59,7 +60,7 @@ public class Input {
 
         String choice;
         display.printMenu("",
-                "What type of game should be",
+                "Game type:",
                 "1 - Player versus Player",
                 "2 - Player versus AI",
                 "3 - AI versus AI");
@@ -76,9 +77,9 @@ public class Input {
                     case "2":
                         return RuleSet.PlayerType.PLAYER_VS_AI;
                     case "3":
-                        return RuleSet.PlayerType.PLAYER_VS_AI;
+                        return RuleSet.PlayerType.AI_VS_AI;
                     default:
-                        display.printSelectNumber1to3();
+                        display.printSelectNumber1toN(RuleSet.PlayerType.values().length);
                 }
             }
         }
@@ -88,7 +89,7 @@ public class Input {
 
         String choice;
         display.printMenu("",
-                "What shape of the ships should be",
+                "Ship shapes allowed in the game:",
                 "1 - Line-shaped ships only",
                 "2 - Mixed-shaped ships");
 
@@ -105,7 +106,7 @@ public class Input {
                         return RuleSet.ShipForm.MIXED_SHIPS;
 
                     default:
-                        display.printSelectNumber1to2();
+                        display.printSelectNumber1toN(RuleSet.ShipForm.values().length);
                 }
             }
         }
@@ -115,9 +116,9 @@ public class Input {
 
         String choice;
         display.printMenu("",
-                "There should be adjacency between the ships",
-                "1 - Be adjacency",
-                "2 - Don't be adjacency");
+                "Adjacency rules between ships:",
+                "1 - Adjacency not allowed",
+                "2 - Adjacency allowed");
 
 
         while (true) {
@@ -127,12 +128,38 @@ public class Input {
 
                 switch (choice) {
                     case "1":
-                        return RuleSet.ShipAdjacency.ALLOWED;
-                    case "2":
                         return RuleSet.ShipAdjacency.NOT_ALLOWED;
+                    case "2":
+                        return RuleSet.ShipAdjacency.ALLOWED;
 
                     default:
-                        display.printSelectNumber1to2();
+                        display.printSelectNumber1toN(RuleSet.ShipAdjacency.values().length);
+                }
+            }
+        }
+    }
+
+    public RuleSet.ShipPlacement selectShipPlacement(Display display) {
+        String choice;
+        display.printMenu("",
+                "Ship placement:",
+                "1 - random generate placement",
+                "2 - manual placement");
+
+
+        while (true) {
+            display.printCommandPrompt();
+            if (scanner.hasNextLine()) {
+                choice = scanner.nextLine().trim();
+
+                switch (choice) {
+                    case "1":
+                        return RuleSet.ShipPlacement.RANDOM;
+                    case "2":
+                        return RuleSet.ShipPlacement.MANUAL;
+
+                    default:
+                        display.printSelectNumber1toN(RuleSet.ShipPlacement.values().length);
                 }
             }
         }
@@ -142,10 +169,11 @@ public class Input {
 
         String choice;
         display.printMenu("******* BATTLESHIP GAME V1.0 *******",
-                "Choose from these choices",
+                "Please choose from the following:",
                 "1 - New Game",
                 "2 - High Score",
-                "3 - Quit");
+                "3 - Options",
+                "4 - Quit");
 
 
         while (true) {
@@ -159,9 +187,49 @@ public class Input {
                     case "2":
                         return Battleship.MenuSelection.HIGH_SCORE;
                     case "3":
+                        return Battleship.MenuSelection.OPTIONS;
+                    case "4":
                         return Battleship.MenuSelection.QUIT;
                     default:
-                        display.printSelectNumber1to3();
+                        display.printSelectNumber1toN(Battleship.MenuSelection.values().length);
+                }
+            }
+        }
+    }
+
+    public void getOptionsMenuInput(Display display, RuleSet ruleSet) {
+        String choice;
+
+        while (true) {
+            display.printMenu("OPTIONS MENU",
+                    "Please choose from the following:",
+                    "1 - Set game type       (currently: " + ruleSet.getPlayerType().toString() + ")",
+                    "2 - Set ship form       (currently: " + ruleSet.getShipForm().toString() + ")",
+                    "3 - Set ship adjacency  (currently: " + ruleSet.getShipAdjacency().toString() + ")",
+                    "4 - Set ship placement  (currently: " + ruleSet.getShipPlacement().toString() + ")",
+                    "5 - Back to Main Menu");
+
+            display.printCommandPrompt();
+            if (scanner.hasNextLine()) {
+                choice = scanner.nextLine().trim();
+
+                switch (choice) {
+                    case "1":
+                        ruleSet.setPlayerType(selectPlayerType(display));
+                        break;
+                    case "2":
+                        ruleSet.setShipForm(selectShipForm(display));
+                        break;
+                    case "3":
+                        ruleSet.setShipAdjacency(selectShipAdjacency(display));
+                        break;
+                    case "4":
+                        ruleSet.setShipPlacement(selectShipPlacement(display));
+                        break;
+                    case "5":
+                        return;
+                    default:
+                        display.printSelectNumber1toN(Battleship.MenuSelection.values().length);
                 }
             }
         }
@@ -230,7 +298,36 @@ public class Input {
             display.printEnterYourName();
             name = scanner.nextLine();
         } while(name == null || name.equals(""));
-        return name;
+        return name.trim();
+    }
+
+    public String getShipPlacementInput() {
+        return scanner.nextLine();
+    }
+
+    public Direction getDirectionFromUser(Display display) {
+        Direction direction = null;
+
+        do {
+            display.printGetDirectionFromPlayer();
+            String inputStr = scanner.nextLine();
+            if(inputStr != null && inputStr.length() == 1)
+                direction = Direction.getDirectionFromCharacter(inputStr.charAt(0));
+        } while(direction == null);
+
+        return direction;
+    }
+
+    public boolean getIsShipPlacementOk(Display display) {
+        int number = -1;
+        do {
+            number = -1;
+            display.printIsShipPlacementOk();
+            String inputStr = scanner.nextLine();
+            if(inputStr != null && inputStr.length() == 1 && Character.isDigit(inputStr.charAt(0)))
+                number = Integer.parseInt(inputStr);
+        } while (!(number == 1 || number == 2));
+        return number == 1;
     }
 }
 

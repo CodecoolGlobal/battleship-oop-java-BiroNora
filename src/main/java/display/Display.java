@@ -1,6 +1,7 @@
 package main.java.display;
 
 import main.java.data.Board;
+import main.java.data.ShipType;
 import main.java.data.Square;
 import main.java.data.SquareStatus;
 
@@ -10,7 +11,7 @@ public class Display {
         System.out.println(error);
     }
 
-    //isPlayer == should draw player ships or opponent ships
+    //isPlayer: if true, ship parts will be visible on the board
     public void printBoard(Board board, boolean isPlayer) {
         Square[][] ocean = board.getOcean();
         for (int row = -1; row < ocean.length; row++) {
@@ -68,8 +69,8 @@ public class Display {
     public void printGetCoordinateFromPlayer(Board board) {
         int[] arrMin = new int[]{0, 1};
         int[] arrMax = new int[]{board.getWidth() - 1, board.getHeight()};
-        System.out.println("\nType in the coordinates of your ship (e.g. " +
-                convertFromRowColToString(arrMin) + " - " + convertFromRowColToString(arrMax) + " ) or type in QUIT to give up: ");
+        System.out.println("\nType in the target coordinates (e.g. " +
+                convertFromRowColToString(arrMin) + " - " + convertFromRowColToString(arrMax) + ") or type in QUIT to exit game: ");
     }
 
     public void printGameOver(String winner) {
@@ -98,12 +99,8 @@ public class Display {
         System.out.println();
     }
 
-    public void printSelectNumber1to3() {
-        System.out.println("Please, select number 1 or 2 or 3");
-    }
-
-    public void printSelectNumber1to2() {
-        System.out.println("Please, select number 1 or 2");
+    public void printSelectNumber1toN(int n) {
+        System.out.println("Please, select number (1 - " + n + ")");
     }
 
     public void printCommandPrompt() {
@@ -126,7 +123,7 @@ public class Display {
         System.out.println("The coordinate is outside the game board.");
     }
 
-    public void goodbye() {
+    public void printGoodbye() {
         System.out.println("Goodbye!");
     }
 
@@ -138,14 +135,52 @@ public class Display {
         return String.valueOf(c) + String.valueOf(rowCol[1]);
     }
 
-    public void drawScoreBoard(String[][] scoreBoard) {
+    public void printScoreBoard(String[][] scoreBoard) {
+        int longestName = 0;
+        int shortestName = Integer.MAX_VALUE;
+        for (int row = 0; row < scoreBoard.length; row++) {
+            if(longestName < scoreBoard[row][0].length())
+                longestName = scoreBoard[row][0].length();
+            if(scoreBoard[row][0].length() < shortestName)
+                shortestName = scoreBoard[row][0].length();
+        }
+
+        String spacesMax = generateSpaces(longestName - shortestName);
         System.out.println("***HIGH SCORES:***");
         for (int row = 0; row < scoreBoard.length; row++) {
-            System.out.println(row + 1 + ". " + scoreBoard[row][0] + " - " + scoreBoard[row][1]);
+            String spaces = generateSpaces(longestName - scoreBoard[row][0].length());
+            System.out.println(row + 1 + ". " + (row+1 < 10 ? " " : "") + scoreBoard[row][0] + spaces + " - " + spacesMax + scoreBoard[row][1]);
         }
+    }
+
+    public String generateSpaces(int length) {
+        StringBuilder spaces = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            spaces.append(" ");
+        }
+        return spaces.toString();
     }
 
     public void printEnterYourName() {
         System.out.println("Please enter your name:");
+    }
+
+    public void printNextShipIs(String playername, ShipType shipType) {
+        System.out.println(playername + ", please place the next ship on the board:");
+        System.out.println(shipType.toString().toLowerCase() + " (size: " + shipType.getNumberOfSquares() + ")");
+    }
+
+    public void printGetDirectionFromPlayer() {
+        System.out.println("Please enter a direction for the ship - (N)orth, (E)ast, (S)outh or (W)est:");
+    }
+
+    public void printInvalidShipPlacement() {
+        System.out.println("Cannot place the ship there!");
+    }
+
+    public void printIsShipPlacementOk() {
+        System.out.println("Is this placement ok?");
+        System.out.println("1 - Yes, we can continue");
+        System.out.println("2 - No, I want to place the ship somewhere else");
     }
 }

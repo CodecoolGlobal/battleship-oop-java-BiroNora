@@ -3,6 +3,9 @@ package main.java.gamelogic;
 import main.java.data.*;
 import main.java.display.Display;
 import main.java.input.Input;
+import main.java.utility.Sleep;
+
+import java.util.List;
 
 public class Game {
     private final int waitingMillisec = 1500;
@@ -11,29 +14,58 @@ public class Game {
     private Player player2;
     private Board player1Board;
     private Board player2Board;
-    private RuleSet ruleSet;
 
     private Player currentPlayer;
     private Board currentBoard;
 
-    public void newGame(Display display, Input input, BoardFactory boardFactory, HighScore highScore) {
-        RuleSet.PlayerType playerType = input.selectPlayerType(display);  // PLAYER_VS_PLAYER, PLAYER_VS_AI, AI_VS_AI
-        RuleSet.ShipForm shipForm = input.selectShipForm(display);  // LINE_SHIPS, MIXED_SHIPS
-        RuleSet.ShipAdjacency shipAdjacency = input.selectShipAdjacency(display);  // ALLOWED, NOT_ALLOWED
-        ruleSet = new RuleSet(playerType, shipForm, shipAdjacency);
+    public void newGame(Display display, Input input, BoardFactory boardFactory, HighScore highScore, RuleSet ruleSet) {
+        //RuleSet.PlayerType playerType = input.selectPlayerType(display);  // PLAYER_VS_PLAYER, PLAYER_VS_AI, AI_VS_AI
+        //RuleSet.ShipForm shipForm = input.selectShipForm(display);  // LINE_SHIPS, MIXED_SHIPS
+        //RuleSet.ShipAdjacency shipAdjacency = input.selectShipAdjacency(display);  // ALLOWED, NOT_ALLOWED
+        //RuleSet.ShipPlacement shipPlacement = input.selectShipPlacement(display);  // RANDOM, MANUAL
+        //ruleSet = new RuleSet(playerType, shipForm, shipAdjacency, shipPlacement);
+        //ruleSet = new RuleSet();
 
-        if (playerType == RuleSet.PlayerType.PLAYER_VS_PLAYER) {
+        if (ruleSet.getPlayerType() == RuleSet.PlayerType.PLAYER_VS_PLAYER) {
             player1 = new Player("Player 1");
             player2 = new Player("Player 2");
-        } else if (playerType == RuleSet.PlayerType.PLAYER_VS_AI) {
+        } else if (ruleSet.getPlayerType() == RuleSet.PlayerType.PLAYER_VS_AI) {
             player1 = new Player("Player 1");
+            player2 = new ComputerPlayer("Player 2");
+        } else { //AI_VS_AI
+            player1 = new ComputerPlayer("Player 1");
             player2 = new ComputerPlayer("Player 2");
         }
 
-        player1Board = boardFactory.randomPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
-                ShipType.getDefaultShipSet(), player1);
-        player2Board = boardFactory.randomPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
-                ShipType.getDefaultShipSet(), player2);
+        List<ShipType> shipTypeList;
+        if (ruleSet.getShipForm() == RuleSet.ShipForm.LINE_SHIPS) {
+            shipTypeList = ShipType.getLineShipSet();
+        } else {
+            shipTypeList = ShipType.getMixedShipSet();
+        }
+
+        boolean checkForAdjacency;
+        if(ruleSet.getShipAdjacency() == RuleSet.ShipAdjacency.ALLOWED) {
+            checkForAdjacency = false;
+        } else {
+            checkForAdjacency = true;
+        }
+
+        if(player1.isHuman() && ruleSet.getShipPlacement() == RuleSet.ShipPlacement.MANUAL) {
+            player1Board = boardFactory.manualPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
+                    shipTypeList, player1, checkForAdjacency, display, input);
+        } else {
+            player1Board = boardFactory.randomPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
+                    shipTypeList, player1, checkForAdjacency);
+        }
+
+        if(player2.isHuman() && ruleSet.getShipPlacement() == RuleSet.ShipPlacement.MANUAL) {
+            player2Board = boardFactory.manualPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
+                    ShipType.getLineShipSet(), player2, checkForAdjacency, display, input);
+        } else {
+            player2Board = boardFactory.randomPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
+                    ShipType.getLineShipSet(), player2, checkForAdjacency);
+        }
 
         playLoop(display, input, highScore);
     }
@@ -73,15 +105,7 @@ public class Game {
         int[] rowCol = currentPlayer.selectMove(display, input, opponentBoard, currentPlayer.getName());
         currentPlayer.excecuteMove(rowCol, display, currentBoard, opponentBoard, getOpponentPlayer());
 
-        wait(waitingMillisec);
-    }
-
-    private void wait(int milliSeconds) {
-        try {
-            Thread.sleep(milliSeconds);
-        } catch (InterruptedException e) {
-            // ...do nothing
-        }
+        Sleep.goToSleep(waitingMillisec);
     }
 
     public void playLoop(Display display, Input input, HighScore highScore) {
@@ -95,14 +119,15 @@ public class Game {
 
         switchToNextPlayer();
         display.printGameOver(currentPlayer.getName());
-        wait(waitingMillisec);
 
         if (currentPlayer.isHuman()) {
             String name = input.pleaseEnterYourName(display);
             int score = getOpponentBoard().calculateScore();
             highScore.newEntry(name, score);
             highScore.writeToFile();
-            display.drawScoreBoard(highScore.getScoreBoard());
+            display.printScoreBoard(highScore.getScoreBoard());
+        } else {
+            Sleep.goToSleep(waitingMillisec);
         }
     }
 }

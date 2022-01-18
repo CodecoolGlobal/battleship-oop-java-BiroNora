@@ -23,4 +23,22 @@ public enum Direction {
         }
         return null;
     }
+
+    public static Direction getDirectionFromCharacter(char c) {
+        switch (Character.toUpperCase(c)) {
+            case 'N' -> {
+                return NORTH;
+            }
+            case 'E' -> {
+                return EAST;
+            }
+            case 'S' -> {
+                return SOUTH;
+            }
+            case 'W' -> {
+                return WEST;
+            }
+        }
+        return null;
+    }
 }
