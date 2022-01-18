@@ -82,16 +82,16 @@ public class Display {
         System.out.println("You didn't type anything !");
     }
 
-    public void printMenu(String startingTitle, String subTitle, String... menuItems) {
+    public void printMenu(String mainTitle, String menuTitle, String... menuItems) {
 
         String tabSign = "\t";
         String cRet = "\n";
         String separatorSign = "-";
 
-        System.out.print(!startingTitle.isEmpty() ? cRet + tabSign + startingTitle + cRet : "");
+        System.out.print(!mainTitle.isEmpty() ? cRet + tabSign + mainTitle + cRet : "");
 
-        System.out.println(cRet + tabSign + subTitle);
-        System.out.println(tabSign + separatorSign.repeat(subTitle.length()));
+        System.out.println(cRet + tabSign + menuTitle);
+        System.out.println(tabSign + separatorSign.repeat(menuTitle.length()));
 
         for (String menuItem : menuItems) {
             System.out.println(tabSign + menuItem);
