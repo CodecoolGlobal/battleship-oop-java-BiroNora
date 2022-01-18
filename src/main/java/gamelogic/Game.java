@@ -19,13 +19,6 @@ public class Game {
     private Board currentBoard;
 
     public void newGame(Display display, Input input, BoardFactory boardFactory, HighScore highScore, RuleSet ruleSet) {
-        //RuleSet.PlayerType playerType = input.selectPlayerType(display);  // PLAYER_VS_PLAYER, PLAYER_VS_AI, AI_VS_AI
-        //RuleSet.ShipForm shipForm = input.selectShipForm(display);  // LINE_SHIPS, MIXED_SHIPS
-        //RuleSet.ShipAdjacency shipAdjacency = input.selectShipAdjacency(display);  // ALLOWED, NOT_ALLOWED
-        //RuleSet.ShipPlacement shipPlacement = input.selectShipPlacement(display);  // RANDOM, MANUAL
-        //ruleSet = new RuleSet(playerType, shipForm, shipAdjacency, shipPlacement);
-        //ruleSet = new RuleSet();
-
         if (ruleSet.getPlayerType() == RuleSet.PlayerType.PLAYER_VS_PLAYER) {
             player1 = new Player("Player 1");
             player2 = new Player("Player 2");
@@ -37,11 +30,14 @@ public class Game {
             player2 = new ComputerPlayer("Player 2");
         }
 
-        List<ShipType> shipTypeList;
+        List<ShipType> shipTypeList1;
+        List<ShipType> shipTypeList2;
         if (ruleSet.getShipForm() == RuleSet.ShipForm.LINE_SHIPS) {
-            shipTypeList = ShipType.getLineShipSet();
+            shipTypeList1 = ShipType.getLineShipSet();
+            shipTypeList2 = ShipType.getLineShipSet();
         } else {
-            shipTypeList = ShipType.getMixedShipSet();
+            shipTypeList1 = ShipType.getMixedShipSet();
+            shipTypeList2 = ShipType.getMixedShipSet();
         }
 
         boolean checkForAdjacency;
@@ -53,18 +49,18 @@ public class Game {
 
         if(player1.isHuman() && ruleSet.getShipPlacement() == RuleSet.ShipPlacement.MANUAL) {
             player1Board = boardFactory.manualPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
-                    shipTypeList, player1, checkForAdjacency, display, input);
+                    shipTypeList1, player1, checkForAdjacency, display, input);
         } else {
             player1Board = boardFactory.randomPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
-                    shipTypeList, player1, checkForAdjacency);
+                    shipTypeList1, player1, checkForAdjacency);
         }
 
         if(player2.isHuman() && ruleSet.getShipPlacement() == RuleSet.ShipPlacement.MANUAL) {
             player2Board = boardFactory.manualPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
-                    ShipType.getLineShipSet(), player2, checkForAdjacency, display, input);
+                    shipTypeList2, player2, checkForAdjacency, display, input);
         } else {
             player2Board = boardFactory.randomPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
-                    ShipType.getLineShipSet(), player2, checkForAdjacency);
+                    shipTypeList2, player2, checkForAdjacency);
         }
 
         playLoop(display, input, highScore);
