@@ -41,7 +41,7 @@ public class Input {
                 }
             }
         }
-        return arrCoordinate == null ? null : arrCoordinate;
+        return arrCoordinate;
 
     }
 
