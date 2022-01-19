@@ -6,6 +6,7 @@ import main.java.data.SquareStatus;
 import main.java.display.Display;
 import main.java.input.Input;
 import main.java.utility.RandomGenerator;
+import main.java.utility.Sleep;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class ComputerPlayer extends Player {
     boolean targetMode = false;
     private ArrayList<Ship> shipList;
     private ArrayList<int[]> targets;
-    private Random rnd;
+    private Random rnd; //hasznald a random generator metodust ehelyett
     private int[] tagetShoot = new int[2];
 
     public ComputerPlayer(String name) {
@@ -33,16 +34,13 @@ public class ComputerPlayer extends Player {
         int[] rowCol = null;
         boolean isOk;
         display.printSelectMove(currentPlayerName + " (Computer)");
+        Sleep.goToSleep(2000);
         do {
             isOk = true;
             rowCol = shoot(opponentBoard);
             SquareStatus squareStatus = opponentBoard.getSquareStatus(rowCol);
             if (squareStatus == null || squareStatus == SquareStatus.HIT || squareStatus == SquareStatus.MISSED) {
                 isOk = false;
-                if (squareStatus == null)
-                    display.printWrongCoordinateGiven();
-                else
-                    display.printAlreadyShotThere();
             }
         } while (!isOk);
        // System.out.println(Arrays.toString(rowCol));
@@ -89,7 +87,10 @@ public class ComputerPlayer extends Player {
         return rowCol;
     }
 
-
+    @Override
+    public boolean isHuman() {
+        return false;
+    }
 }
 
 

@@ -4,7 +4,7 @@ import main.java.data.Board;
 import main.java.data.Direction;
 import main.java.display.Display;
 import main.java.gamelogic.Battleship;
-import main.java.gamelogic.RuleSet;
+import main.java.data.RuleSet;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -226,6 +226,7 @@ public class Input {
                         ruleSet.setShipPlacement(selectShipPlacement(display));
                         break;
                     case "5":
+                        ruleSet.writeToFile();
                         return;
                     default:
                         display.printSelectNumber1toN(Battleship.MenuSelection.values().length);

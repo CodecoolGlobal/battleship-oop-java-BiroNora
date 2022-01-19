@@ -183,4 +183,8 @@ public class Display {
         System.out.println("1 - Yes, we can continue");
         System.out.println("2 - No, I want to place the ship somewhere else");
     }
+
+    public void printCoordinate(int[] rowCol) {
+        System.out.println("Shoot to " + convertFromRowColToString(rowCol));
+    }
 }

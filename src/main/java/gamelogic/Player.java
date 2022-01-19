@@ -108,6 +108,8 @@ public class Player {
 
         display.printBoards(currentBoard, opponentBoard);
 
+        display.printCoordinate(rowCol);
+
         if(squareStatus == SquareStatus.EMPTY) {
             display.printShotMissed();
         } else if(squareStatus == SquareStatus.SHIP && shipHitStatus != Ship.ShipHitStatus.SUNK) {
