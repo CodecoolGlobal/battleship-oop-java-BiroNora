@@ -2,6 +2,7 @@ package main.java.gamelogic;
 
 import main.java.data.BoardFactory;
 import main.java.data.HighScore;
+import main.java.data.RuleSet;
 import main.java.display.Display;
 import main.java.input.Input;
 
