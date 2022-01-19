@@ -67,7 +67,7 @@ public class Display {
     }
 
     public void printGetCoordinateFromPlayer(Board board) {
-        int[] arrMin = new int[]{0, 1};
+        int[] arrMin = new int[]{0, 0};
         int[] arrMax = new int[]{board.getWidth() - 1, board.getHeight()};
         System.out.println("\nType in the target coordinates (e.g. " +
                 convertFromRowColToString(arrMin) + " - " + convertFromRowColToString(arrMax) + ") or type in QUIT to exit game: ");
@@ -132,7 +132,7 @@ public class Display {
         int x = rowCol[0];
         char c = (char) (x + 17 + '0');
 
-        return String.valueOf(c) + String.valueOf(rowCol[1]);
+        return String.valueOf(c) + String.valueOf(rowCol[1]+1);
     }
 
     public void printScoreBoard(String[][] scoreBoard) {
