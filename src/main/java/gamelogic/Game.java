@@ -41,13 +41,13 @@ public class Game {
         }
 
         boolean checkForAdjacency;
-        if(ruleSet.getShipAdjacency() == RuleSet.ShipAdjacency.ALLOWED) {
+        if (ruleSet.getShipAdjacency() == RuleSet.ShipAdjacency.ALLOWED) {
             checkForAdjacency = false;
         } else {
             checkForAdjacency = true;
         }
 
-        if(player1.isHuman() && ruleSet.getShipPlacement() == RuleSet.ShipPlacement.MANUAL) {
+        if (player1.isHuman() && ruleSet.getShipPlacement() == RuleSet.ShipPlacement.MANUAL) {
             player1Board = boardFactory.manualPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
                     shipTypeList1, player1, checkForAdjacency, display, input);
         } else {
@@ -55,7 +55,7 @@ public class Game {
                     shipTypeList1, player1, checkForAdjacency);
         }
 
-        if(player2.isHuman() && ruleSet.getShipPlacement() == RuleSet.ShipPlacement.MANUAL) {
+        if (player2.isHuman() && ruleSet.getShipPlacement() == RuleSet.ShipPlacement.MANUAL) {
             player2Board = boardFactory.manualPlacement(Board.DEFAULT_SIZE, Board.DEFAULT_SIZE,
                     shipTypeList2, player2, checkForAdjacency, display, input);
         } else {

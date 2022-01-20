@@ -9,12 +9,6 @@ import main.java.utility.Sleep;
 import java.util.List;
 
 public class BoardFactory {
-    //12 ships:
-    //1 carrier(5)
-    //2 battleships(4)
-    //3 cruisers(3)
-    //4 destroyers(2)
-    //2 submarines(1)
     public Board randomPlacement(int rows, int cols, List<ShipType> shipTypeList, Player player, boolean checkForAdjacency) {
 
         Board board;
@@ -66,17 +60,17 @@ public class BoardFactory {
                 int[] rowCol = input.getCoordinateFromUser(display, board);
                 Direction direction = input.getDirectionFromUser(display);
                 ship = new Ship(shipTypeList.get(i), rowCol, direction);
-                if(!board.isShipPlacementPossible(ship, checkForAdjacency)) {
+                if (!board.isShipPlacementPossible(ship, checkForAdjacency)) {
                     display.printInvalidShipPlacement();
                     Sleep.goToSleep(1000);
                 } else {
                     board.placeShip(ship);
                     display.printBoard(board, true);
                     isOk = input.getIsShipPlacementOk(display);
-                    if(!isOk)
+                    if (!isOk)
                         board.removeShip(ship);
                 }
-            } while(!isOk);
+            } while (!isOk);
 
             player.addShip(ship);
         }

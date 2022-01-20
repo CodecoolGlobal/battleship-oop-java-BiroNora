@@ -3,10 +3,13 @@ package main.java.data;
 import main.java.utility.FileInOut;
 
 public class RuleSet {
-    public enum PlayerType { PLAYER_VS_PLAYER, PLAYER_VS_AI, AI_VS_AI }
-    public enum ShipForm { LINE_SHIPS, MIXED_SHIPS }
-    public enum ShipAdjacency { ALLOWED, NOT_ALLOWED }
-    public enum ShipPlacement { RANDOM, MANUAL }
+    public enum PlayerType {PLAYER_VS_PLAYER, PLAYER_VS_AI, AI_VS_AI}
+
+    public enum ShipForm {LINE_SHIPS, MIXED_SHIPS}
+
+    public enum ShipAdjacency {ALLOWED, NOT_ALLOWED}
+
+    public enum ShipPlacement {RANDOM, MANUAL}
 
     private final String pathName = "options.txt";
 
@@ -16,7 +19,7 @@ public class RuleSet {
     private ShipPlacement shipPlacement;
 
     public RuleSet() {
-        if(!readFromFile()) {
+        if (!readFromFile()) {
             this.playerType = PlayerType.PLAYER_VS_AI;
             this.shipForm = ShipForm.LINE_SHIPS;
             this.shipAdjacency = ShipAdjacency.NOT_ALLOWED;
@@ -58,7 +61,7 @@ public class RuleSet {
 
     public boolean readFromFile() {
         String[] lines = FileInOut.readLines(pathName);
-        if(lines.length == 4) {
+        if (lines.length == 4) {
             this.playerType = PlayerType.values()[Integer.parseInt(lines[0])];
             this.shipForm = ShipForm.values()[Integer.parseInt(lines[1])];
             this.shipAdjacency = ShipAdjacency.values()[Integer.parseInt(lines[2])];

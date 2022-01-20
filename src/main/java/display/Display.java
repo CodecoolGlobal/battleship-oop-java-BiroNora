@@ -132,7 +132,7 @@ public class Display {
         int x = rowCol[0];
         char c = (char) (x + 17 + '0');
 
-        return String.valueOf(c) + String.valueOf(rowCol[1]+1);
+        return String.valueOf(c) + String.valueOf(rowCol[1] + 1);
     }
 
     public void printScoreBoard(String[][] scoreBoard) {
