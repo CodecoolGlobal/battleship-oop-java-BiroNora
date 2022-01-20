@@ -97,9 +97,10 @@ public class Game {
     //logic which determines the flow of round
     public void round(Display display, Input input) {
         Board opponentBoard = getOpponentBoard();
+        Player opponent = getOpponentPlayer();
         display.printBoards(currentBoard, opponentBoard);
-        int[] rowCol = currentPlayer.selectMove(display, input, opponentBoard, currentPlayer.getName());
-        currentPlayer.excecuteMove(rowCol, display, currentBoard, opponentBoard, getOpponentPlayer());
+        int[] rowCol = currentPlayer.selectMove(display, input, opponentBoard, opponent, currentPlayer.getName());
+        currentPlayer.excecuteMove(rowCol, display, currentBoard, opponentBoard, opponent);
 
         Sleep.goToSleep(waitingMillisec);
     }

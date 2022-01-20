@@ -47,6 +47,19 @@ public class Player {
         this.name = name;
     }
 
+    //checking ship hit status
+    public Ship.ShipHitStatus getShipHitStatus(int[] rowCol, boolean attemptToHit) {
+        Ship.ShipHitStatus shipHitStatus = Ship.ShipHitStatus.HIT;
+        for(Ship ship : ships) {
+            if(ship.isShipOnCoordinate(rowCol, attemptToHit)) {
+                if(ship.isSunk())
+                    shipHitStatus = Ship.ShipHitStatus.SUNK;
+                break;
+            }
+        }
+        return shipHitStatus;
+    }
+/*
     //calculates hitting a ship (ship is HIT or SUNK)
     public Ship.ShipHitStatus hitShip(int[] rowCol) {
         Ship.ShipHitStatus shipHitStatus = Ship.ShipHitStatus.HIT;
@@ -59,6 +72,7 @@ public class Player {
         }
         return shipHitStatus;
     }
+*/
 
     //player has at least one ship left alive
     public boolean isAlive() {
@@ -73,7 +87,7 @@ public class Player {
     }
 
     //select valid place to shoot
-    public int[] selectMove(Display display, Input input, Board opponentBoard, String currentPlayerName) {
+    public int[] selectMove(Display display, Input input, Board opponentBoard, Player opponent, String currentPlayerName) {
         int[] rowCol = null;
         boolean isOk;
         display.printSelectMove(currentPlayerName);
@@ -101,7 +115,7 @@ public class Player {
 
         if(squareStatus == SquareStatus.SHIP) {
             newSquareStatus = SquareStatus.HIT;
-            shipHitStatus = opponent.hitShip(rowCol);
+            shipHitStatus = opponent.getShipHitStatus(rowCol, true);
         }
 
         opponentBoard.setSquareStatus(rowCol, newSquareStatus);

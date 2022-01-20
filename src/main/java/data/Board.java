@@ -1,8 +1,11 @@
 package main.java.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
+    public enum NeighbourPosition { HORIZONTAL, VERTICAL, UNSPECIFIED }
+
     public static final int DEFAULT_SIZE = 10;
 
     //10x10 by default
@@ -71,13 +74,18 @@ public class Board {
 
     //get the status of a square
     public SquareStatus getSquareStatus(int[] rowCol) {
+        Square square = getSquare(rowCol);
+        return (square != null ? square.getStatus() : null);
+    }
+
+    public Square getSquare(int[] rowCol) {
 
         int row = rowCol[0];
         int col = rowCol[1];
 
         return (0 <= row && row < ocean.length &&
                 0 <= col && col < ocean[0].length ?
-                ocean[row][col].getStatus() : null);
+                ocean[row][col] : null);
     }
 
     public void setSquareStatus(int[] rowCol, SquareStatus newStatus) {
@@ -111,5 +119,22 @@ public class Board {
             }
         }
         return score * 100;
+    }
+
+    public List<Square> getNeighbouringNonHitSquares(int[] rowCol, NeighbourPosition neigbourPosition) {
+        List<Square> neighbours = new ArrayList<>();
+        int row = rowCol[0];
+        int col = rowCol[1];
+
+        if(0 <= row-1 && !ocean[row-1][col].hasBeenShot() && neigbourPosition != NeighbourPosition.HORIZONTAL)
+            neighbours.add(ocean[row-1][col]);
+        if(row+1 < ocean.length && !ocean[row+1][col].hasBeenShot() && neigbourPosition != NeighbourPosition.HORIZONTAL)
+            neighbours.add(ocean[row+1][col]);
+        if(0 <= col-1 && !ocean[row][col-1].hasBeenShot() && neigbourPosition != NeighbourPosition.VERTICAL)
+            neighbours.add(ocean[row][col-1]);
+        if(col+1 < ocean[0].length && !ocean[row][col+1].hasBeenShot() && neigbourPosition != NeighbourPosition.VERTICAL)
+            neighbours.add(ocean[row][col+1]);
+
+        return neighbours;
     }
 }

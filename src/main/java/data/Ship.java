@@ -27,6 +27,18 @@ public class Ship {
         return squares;
     }
 
+    //check if ship is on coordinate and can be set to hit the ship
+    public boolean isShipOnCoordinate(int[] rowCol, boolean attemptToHit) {
+        for (int i = 0; i < squares.size(); i++) {
+            if(rowCol[0] == squares.get(i).getY() && rowCol[1] == squares.get(i).getX()) {
+                if(attemptToHit)
+                    squares.set(i, new Square(squares.get(i).getX(), squares.get(i).getY(), SquareStatus.HIT));
+                return true;
+            }
+        }
+        return false;
+    }
+/*
     //hit the ship on coordinate
     public boolean attemptToHitCoordinate(int[] rowCol) {
         for (int i = 0; i < squares.size(); i++) {
@@ -37,6 +49,7 @@ public class Ship {
         }
         return false;
     }
+*/
 
     //check if all ship squares are hit
     public boolean isSunk() {
