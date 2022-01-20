@@ -27,8 +27,16 @@ public class Square {
         this.y = y;
     }
 
+    public int[] getRowCol() {
+        return new int[] { y, x };
+    }
+
     public SquareStatus getStatus() {
         return status;
+    }
+
+    public boolean hasBeenShot() {
+        return status == SquareStatus.HIT || status == SquareStatus.MISSED;
     }
 
     public void setStatus(SquareStatus status) {
