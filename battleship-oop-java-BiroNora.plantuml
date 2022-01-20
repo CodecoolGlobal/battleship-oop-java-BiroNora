@@ -1,0 +1,82 @@
+@startuml
+
+title __BATTLESHIP-OOP-JAVA-BIRONORA's Class Diagram__\n
+
+  namespace main.java.data {
+    class main.java.data.Board {
+    }
+  }
+  
+
+  namespace main.java.data {
+    class main.java.data.BoardFactory {
+    }
+  }
+  
+
+  namespace main.java.data {
+    class main.java.data.HighScore {
+    }
+  }
+  
+
+  namespace main.java.data {
+    class main.java.data.RuleSet {
+    }
+  }
+  
+
+  namespace main.java.display {
+    class main.java.display.Display {
+    }
+  }
+  
+
+  namespace main.java.gamelogic {
+    class main.java.gamelogic.Battleship {
+    }
+  }
+  
+
+  namespace main.java.gamelogic {
+    class main.java.gamelogic.ComputerPlayer {
+    }
+  }
+  
+
+  namespace main.java.gamelogic {
+    class main.java.gamelogic.Game {
+    }
+  }
+  
+
+  namespace main.java.gamelogic {
+    class main.java.gamelogic.Player {
+    }
+  }
+  
+
+  namespace main.java.input {
+    class main.java.input.Input {
+    }
+  }
+  
+
+  main.java.gamelogic.Battleship o-- main.java.data.BoardFactory
+  main.java.gamelogic.Battleship o-- main.java.display.Display
+  main.java.gamelogic.Battleship o-- main.java.gamelogic.Game
+  main.java.gamelogic.Battleship o-- main.java.data.HighScore
+  main.java.gamelogic.Battleship o-- main.java.input.Input
+  main.java.gamelogic.Battleship o-- main.java.data.RuleSet
+  main.java.gamelogic.ComputerPlayer -up-|> main.java.gamelogic.Player
+  main.java.gamelogic.Game o-- main.java.gamelogic.Player
+  main.java.gamelogic.Game o-- main.java.data.Board
+
+
+right footer
+
+
+
+endfooter
+
+@enduml

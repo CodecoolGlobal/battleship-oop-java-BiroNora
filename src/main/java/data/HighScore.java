@@ -14,7 +14,7 @@ public class HighScore {
     }
 
     public HighScore() {
-        if(!readFromFile()) {
+        if (!readFromFile()) {
             generateScoreBoard();
             writeToFile();
         }
@@ -32,10 +32,10 @@ public class HighScore {
         String[] lines = FileInOut.readLines(pathName);
         scoreBoard = new String[scoreBoardRows][scoreBoardCols];
         for (int i = 0; i < lines.length; i++) {
-            if(i % 2 == 0) {
-                scoreBoard[i/2][0] = lines[i];
+            if (i % 2 == 0) {
+                scoreBoard[i / 2][0] = lines[i];
             } else {
-                scoreBoard[i/2][1] = lines[i];
+                scoreBoard[i / 2][1] = lines[i];
             }
         }
         return 0 < lines.length;
@@ -44,10 +44,10 @@ public class HighScore {
     public void writeToFile() {
         String[] lines = new String[scoreBoard.length * 2];
         for (int i = 0; i < lines.length; i++) {
-            if(i % 2 == 0) {
-                lines[i] = scoreBoard[i/2][0];
+            if (i % 2 == 0) {
+                lines[i] = scoreBoard[i / 2][0];
             } else {
-                lines[i] = scoreBoard[i/2][1];
+                lines[i] = scoreBoard[i / 2][1];
             }
         }
         FileInOut.writeLinesToFile(lines, pathName);
@@ -62,10 +62,10 @@ public class HighScore {
             } catch (NumberFormatException e) {
                 currentRowScore = 0;
             }
-            if(currentRowScore < score) {
-                for (int row2 = scoreBoard.length-2; row <= row2; row2--) {
-                    scoreBoard[row2+1][0] = scoreBoard[row2][0];
-                    scoreBoard[row2+1][1] = scoreBoard[row2][1];
+            if (currentRowScore < score) {
+                for (int row2 = scoreBoard.length - 2; row <= row2; row2--) {
+                    scoreBoard[row2 + 1][0] = scoreBoard[row2][0];
+                    scoreBoard[row2 + 1][1] = scoreBoard[row2][1];
                 }
                 scoreBoard[row][0] = name;
                 scoreBoard[row][1] = String.valueOf(score);

@@ -40,27 +40,27 @@ public enum ShipType {
     public static List<ShipType> getMixedShipSet() {
         List<ShipType> shipTypeList = new ArrayList<>();
         int randNum = RandomGenerator.getRandomNumber(1, 3 + 1);
-        if(randNum == 1)
+        if (randNum == 1)
             shipTypeList.add(CARRIER_L_SHAPE);
-        else if(randNum == 2)
+        else if (randNum == 2)
             shipTypeList.add(CARRIER_T_SHAPE);
         else
             shipTypeList.add(CARRIER);
 
         randNum = RandomGenerator.getRandomNumber(1, 3 + 1);
-        if(randNum < 3)
+        if (randNum < 3)
             shipTypeList.add(BATTLESHIP_Z_SHAPE);
         else
             shipTypeList.add(BATTLESHIP);
 
         randNum = RandomGenerator.getRandomNumber(1, 3 + 1);
-        if(randNum < 3)
+        if (randNum < 3)
             shipTypeList.add(CRUISER_L_SHAPE);
         else
             shipTypeList.add(CRUISER);
 
         randNum = RandomGenerator.getRandomNumber(1, 3 + 1);
-        if(randNum < 3)
+        if (randNum < 3)
             shipTypeList.add(CRUISER_L_SHAPE);
         else
             shipTypeList.add(CRUISER);

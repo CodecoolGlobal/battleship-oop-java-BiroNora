@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    public enum NeighbourPosition { HORIZONTAL, VERTICAL, UNSPECIFIED }
+    public enum NeighbourPosition {HORIZONTAL, VERTICAL, UNSPECIFIED}
 
     public static final int DEFAULT_SIZE = 10;
 
@@ -90,7 +90,7 @@ public class Board {
 
     public void setSquareStatus(int[] rowCol, SquareStatus newStatus) {
 
-        if(getSquareStatus(rowCol) == null)
+        if (getSquareStatus(rowCol) == null)
             return;
 
         ocean[rowCol[0]][rowCol[1]].setStatus(newStatus);
@@ -113,7 +113,7 @@ public class Board {
         int score = 0;
         for (int row = 0; row < ocean.length; row++) {
             for (int col = 0; col < ocean[0].length; col++) {
-                if(ocean[row][col].getStatus() != SquareStatus.MISSED) {
+                if (ocean[row][col].getStatus() != SquareStatus.MISSED) {
                     score++;
                 }
             }
@@ -126,14 +126,14 @@ public class Board {
         int row = rowCol[0];
         int col = rowCol[1];
 
-        if(0 <= row-1 && !ocean[row-1][col].hasBeenShot() && neigbourPosition != NeighbourPosition.HORIZONTAL)
-            neighbours.add(ocean[row-1][col]);
-        if(row+1 < ocean.length && !ocean[row+1][col].hasBeenShot() && neigbourPosition != NeighbourPosition.HORIZONTAL)
-            neighbours.add(ocean[row+1][col]);
-        if(0 <= col-1 && !ocean[row][col-1].hasBeenShot() && neigbourPosition != NeighbourPosition.VERTICAL)
-            neighbours.add(ocean[row][col-1]);
-        if(col+1 < ocean[0].length && !ocean[row][col+1].hasBeenShot() && neigbourPosition != NeighbourPosition.VERTICAL)
-            neighbours.add(ocean[row][col+1]);
+        if (0 <= row - 1 && !ocean[row - 1][col].hasBeenShot() && neigbourPosition != NeighbourPosition.HORIZONTAL)
+            neighbours.add(ocean[row - 1][col]);
+        if (row + 1 < ocean.length && !ocean[row + 1][col].hasBeenShot() && neigbourPosition != NeighbourPosition.HORIZONTAL)
+            neighbours.add(ocean[row + 1][col]);
+        if (0 <= col - 1 && !ocean[row][col - 1].hasBeenShot() && neigbourPosition != NeighbourPosition.VERTICAL)
+            neighbours.add(ocean[row][col - 1]);
+        if (col + 1 < ocean[0].length && !ocean[row][col + 1].hasBeenShot() && neigbourPosition != NeighbourPosition.VERTICAL)
+            neighbours.add(ocean[row][col + 1]);
 
         return neighbours;
     }

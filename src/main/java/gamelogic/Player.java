@@ -9,12 +9,6 @@ import main.java.input.Input;
 import java.util.ArrayList;
 import java.util.List;
 
-//12 ships:
-//1 carrier(5)
-//2 battleships(4)
-//3 cruisers(3)
-//4 destroyers(2)
-//2 submarines(1)
 public class Player {
     private String name;
     private List<Ship> ships = new ArrayList<>();
@@ -47,41 +41,27 @@ public class Player {
         this.name = name;
     }
 
-    //checking ship hit status
+    //checking ship hit status (also hits ship if allowed)
     public Ship.ShipHitStatus getShipHitStatus(int[] rowCol, boolean attemptToHit) {
         Ship.ShipHitStatus shipHitStatus = Ship.ShipHitStatus.HIT;
-        for(Ship ship : ships) {
-            if(ship.isShipOnCoordinate(rowCol, attemptToHit)) {
-                if(ship.isSunk())
+        for (Ship ship : ships) {
+            if (ship.isShipOnCoordinate(rowCol, attemptToHit)) {
+                if (ship.isSunk())
                     shipHitStatus = Ship.ShipHitStatus.SUNK;
                 break;
             }
         }
         return shipHitStatus;
     }
-/*
-    //calculates hitting a ship (ship is HIT or SUNK)
-    public Ship.ShipHitStatus hitShip(int[] rowCol) {
-        Ship.ShipHitStatus shipHitStatus = Ship.ShipHitStatus.HIT;
-        for(Ship ship : ships) {
-            if(ship.attemptToHitCoordinate(rowCol)) {
-                if(ship.isSunk())
-                    shipHitStatus = Ship.ShipHitStatus.SUNK;
-                break;
-            }
-        }
-        return shipHitStatus;
-    }
-*/
 
     //player has at least one ship left alive
     public boolean isAlive() {
         int shipCount = 0;
-        for(Ship ship : ships) {
-            if(ship.isSunk())
+        for (Ship ship : ships) {
+            if (ship.isSunk())
                 shipCount++;
         }
-        if(shipCount == ships.size())
+        if (shipCount == ships.size())
             return false;
         return true;
     }
@@ -93,11 +73,11 @@ public class Player {
         display.printSelectMove(currentPlayerName);
         do {
             isOk = true;
-            rowCol = input.getCoordinateFromUser(display,opponentBoard);
+            rowCol = input.getCoordinateFromUser(display, opponentBoard);
             SquareStatus squareStatus = opponentBoard.getSquareStatus(rowCol);
-            if(squareStatus == null || squareStatus == SquareStatus.HIT || squareStatus == SquareStatus.MISSED) {
+            if (squareStatus == null || squareStatus == SquareStatus.HIT || squareStatus == SquareStatus.MISSED) {
                 isOk = false;
-                if(squareStatus == null)
+                if (squareStatus == null)
                     display.printWrongCoordinateGiven();
                 else
                     display.printAlreadyShotThere();
@@ -113,7 +93,7 @@ public class Player {
         SquareStatus newSquareStatus = SquareStatus.MISSED;
         Ship.ShipHitStatus shipHitStatus = Ship.ShipHitStatus.HIT;
 
-        if(squareStatus == SquareStatus.SHIP) {
+        if (squareStatus == SquareStatus.SHIP) {
             newSquareStatus = SquareStatus.HIT;
             shipHitStatus = opponent.getShipHitStatus(rowCol, true);
         }
@@ -124,11 +104,11 @@ public class Player {
 
         display.printCoordinate(rowCol);
 
-        if(squareStatus == SquareStatus.EMPTY) {
+        if (squareStatus == SquareStatus.EMPTY) {
             display.printShotMissed();
-        } else if(squareStatus == SquareStatus.SHIP && shipHitStatus != Ship.ShipHitStatus.SUNK) {
+        } else if (squareStatus == SquareStatus.SHIP && shipHitStatus != Ship.ShipHitStatus.SUNK) {
             display.printShotHit();
-        }else if(shipHitStatus == Ship.ShipHitStatus.SUNK) {
+        } else if (shipHitStatus == Ship.ShipHitStatus.SUNK) {
             display.printShipSunk();
         }
     }

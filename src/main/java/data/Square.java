@@ -28,7 +28,7 @@ public class Square {
     }
 
     public int[] getRowCol() {
-        return new int[] { y, x };
+        return new int[]{y, x};
     }
 
     public SquareStatus getStatus() {

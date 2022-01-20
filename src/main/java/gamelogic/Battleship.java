@@ -22,7 +22,7 @@ public class Battleship {
         do {
             menuSelection = input.getMainMenuInput(display);
 
-            switch(menuSelection) {
+            switch (menuSelection) {
                 case NEW_GAME -> {
                     game.newGame(display, input, boardFactory, highScore, ruleSet);
                 }
